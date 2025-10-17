@@ -9,6 +9,8 @@ use App\Models\PlantTip;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Exports\PlantExport;
+use Maatwebsite\Excel\Facades\Excel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 
@@ -88,7 +90,7 @@ public function store(Request $request)
         ->size(200)
         ->generate(route('admin.plants.show', $plant->id), public_path('qrcodes/' . $plant->barcode));
 
-    
+
     if ($request->filled('watering') || $request->filled('lighting') || $request->filled('growing_media')) {
         $plant->tip()->create([
             'watering' => $validated['watering'] ?? null,
@@ -158,4 +160,10 @@ public function store(Request $request)
 
     return redirect()->route('admin.plants.index')->with('success', 'Plant deleted successfully.');
 }
+
+    public function exportExcel()
+    {
+        $fileName = 'data-plants.xlsx';
+        return \Excel::download(new PlantExport, $fileName);
+    }
 }

@@ -40,9 +40,9 @@
                 </span>
                 <input type="text" class="form-control border-start-0" placeholder="Search anything.">
             </div>
-            <button class="btn btn-filter d-flex align-items-center">
-                Filter by <i class="fa-solid fa-angle-down ms-2"></i>
-            </button>
+            <a href="{{ route('admin.plants.export') }}" class="btn btn-filter d-flex align-items-center">
+                <i class="fa-solid fa-file-export mx-2"></i> Export Excel
+            </a>
             <a href="{{ route('admin.plants.create') }}" class="btn btn-add-plants d-flex align-items-center">
                 <i class="fa-solid fa-plus mx-2"></i> Add Plants
             </a>
@@ -153,7 +153,7 @@
         ? `<img src="/qrcodes/${plant.barcode}" alt="QR Code" style="width:100%; max-height: 80px;">` // Barcode disesuaikan agar mirip gambar
         : '<em>No barcode available</em>';
 
-    
+
     const infoBox = (title, content, bgColor) => `
         <div class="col-md-6 mb-3">
             <div class="card shadow-sm h-100" style="background-color: ${bgColor}; border: none;">

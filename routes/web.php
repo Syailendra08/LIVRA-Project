@@ -43,6 +43,7 @@ Route::prefix('plants')->name('plants.')->group(function() {
     Route::post('/update/{id}', [PlantController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantController::class, 'destroy'])->name('delete');
     Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
+    Route::get('/export', [PlantController::class, 'export'])->name('export');
 
 
     // Add more plant-related routes here
