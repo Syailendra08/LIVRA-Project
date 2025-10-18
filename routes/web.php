@@ -43,7 +43,7 @@ Route::prefix('plants')->name('plants.')->group(function() {
     Route::post('/update/{id}', [PlantController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantController::class, 'destroy'])->name('delete');
     Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
-    Route::get('/export', [PlantController::class, 'export'])->name('export');
+    Route::get('/export', [PlantController::class, 'exportExcel'])->name('export');
 
 
     // Add more plant-related routes here
@@ -58,6 +58,7 @@ Route::prefix('category')->name('category.')->group(function() {
     Route::get('/edit/{id}', [PlantCategoryController::class, 'edit'])->name('edit');
     Route::post('/update/{id}', [PlantCategoryController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantCategoryController::class, 'destroy'])->name('delete');
+    Route::get('/export', [PlantCategoryController::class, 'exportExcel'])->name('export');
 });
 
 });

@@ -161,7 +161,7 @@ public function store(Request $request)
     return redirect()->route('admin.plants.index')->with('success', 'Plant deleted successfully.');
 }
 
-    public function exportExcel()
+    public function export()
     {
         $fileName = 'data-plants.xlsx';
         return \Excel::download(new PlantExport, $fileName);

@@ -20,9 +20,15 @@
                 Last update {{ $lastUpdate->updated_at->format('F d, Y \a\t h:i A') }}
             </small>
         </div>
-        <a href="{{ route('admin.category.create') }}" class="btn btn-success">
-            <i class="fa-solid fa-plus mx-2"></i> Add Category
+        <div class="d-flex justify-content-end mb-3 mt-4 mx-2">
+        <a href="{{ route('admin.category.export') }}" class="btn btn-info">
+            <i class="fa-solid fa-file-export mx-2"></i> Export Categories
         </a>
+        <a href="{{ route('admin.category.create') }}" class="btn btn-success">
+            <i class="fa-solid fa-plus mx-3"></i> Add Category
+        </a>
+        </div>
+
 
     </div>
 

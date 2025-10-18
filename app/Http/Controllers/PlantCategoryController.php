@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Exports\CategoriesExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\PlantCategory;
 
@@ -88,5 +89,11 @@ class PlantCategoryController extends Controller
         else {
             return redirect()->back()->with('error', 'Failed to delete category. Please try again.');
         }
+    }
+
+    public function exportExcel()
+    {
+        $fileName = 'categories_' . date('Y_m_d_H_i_s') . '.xlsx';
+        return \Excel::download(new CategoriesExport, $fileName);
     }
 }

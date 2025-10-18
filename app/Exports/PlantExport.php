@@ -7,6 +7,7 @@ use App\Models\Plant;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Support\Facades\Storage;
 
 class PlantExport implements FromCollection, WithHeadings, WithMapping
 {
@@ -41,7 +42,7 @@ class PlantExport implements FromCollection, WithHeadings, WithMapping
             $plant->category ? $plant->category->category_name : 'N/A',
             $plant->location,
 
-            asset('storage/plants/' . $plant->image),
+            asset('storage/plants/' . $plant->photo),
         ];
     }
 }
