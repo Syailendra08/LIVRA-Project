@@ -64,17 +64,38 @@ class PlantCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $category = PlantCategory::find($id);
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $category = PlantCategory::find($id);
+        $request->validate([
+            'category_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ], [
+            'category_name.required' => 'The category name field is required.',
+            'category_name.string' => 'The category name must be a string.',
+            'category_name.max' => 'The category name may not be greater than 255 characters.',
+            'description.string' => 'The description must be a string.',
+        ]);
+        $updateCategory = PlantCategory::where('id', $id)->update([
+            'category_name' => $request->category_name,
+            'description' => $request->description,
+        ]);
+        if ($updateCategory) {
+            return redirect()->route('admin.category.index')->with('success', 'Category update succesful!');
+        } else {
+            return redirect()->back()->with('failed', 'Failed, Category is failed to updated!');
+        }
+
+
     }
 
     /**

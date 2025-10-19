@@ -56,7 +56,7 @@ Route::prefix('category')->name('category.')->group(function() {
     })->name('create');
     Route::post('/store', [PlantCategoryController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [PlantCategoryController::class, 'edit'])->name('edit');
-    Route::post('/update/{id}', [PlantCategoryController::class, 'update'])->name('update');
+    Route::put('/update/{id}', [PlantCategoryController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantCategoryController::class, 'destroy'])->name('delete');
     Route::get('/export', [PlantCategoryController::class, 'exportExcel'])->name('export');
 });

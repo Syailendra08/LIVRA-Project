@@ -60,13 +60,32 @@ public function store(Request $request)
         'watering' => 'nullable|string',
         'lighting' => 'nullable|string',
         'growing_media' => 'nullable|string',
+    ], [
+        'plant_name.required' => 'The plant name field is required.',
+        'plant_name.string' => 'The plant name must be a string.',
+        'plant_name.max' => 'The plant name may not be greater than 255 characters.',
+        'category_id.required' => 'The category field is required.',
+        'category_id.exists' => 'The selected category is invalid.',
+        'location.required' => 'The location field is required.',
+        'location.string' => 'The location must be a string.',
+        'location.max' => 'The location may not be greater than 255 characters.',
+        'stock.required' => 'The stock field is required.',
+        'stock.integer' => 'The stock must be an integer.',
+        'stock.min' => 'The stock must be at least 0.',
+        'condition.required' => 'The condition field is required.',
+        'health_benefits.required' => 'The health benefits field is required.',
+        'cultural_benefits.required' => 'The cultural benefits field is required.',
+        'photo.image' => 'The photo must be an image.',
+        'photo.mimes' => 'The photo must be a file of type: jpg, png, jpeg.',
+        'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
+
     ]);
 
 
-    $photoPath = null;
-    if ($request->hasFile('photo')) {
-        $photoPath = $request->file('photo')->store('plants', 'public');
-    }
+   $photo = $request->file('photo');
+   $photoName = Str::random(5) . '-plant.' . $photo->getClientOriginalExtension();
+   $path = $photo->storeAs('plants', $photoName, 'public');
+
 
 
     $plant = Plant::create([
@@ -77,7 +96,7 @@ public function store(Request $request)
     'location' => $validated['location'],
     'stock' => $validated['stock'],
     'description' => $validated['description'] ?? null,
-    'photo' => $photoPath,
+    'photo' => $path,
     'barcode' => 'barcode-' . uniqid() . '.svg',
     'condition' => $validated['condition'] ?? null,
     'habitat' => $validated['habitat'] ?? null,
@@ -86,10 +105,15 @@ public function store(Request $request)
     ]);
 
 
-    \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
-        ->size(200)
-        ->generate(route('admin.plants.show', $plant->id), public_path('qrcodes/' . $plant->barcode));
+    if (!Storage::exists('public/qrcodes')) {
+    Storage::makeDirectory('public/qrcodes');
+}
 
+$qrCode = QrCode::format('svg')
+    ->size(200)
+    ->generate(route('admin.plants.show', $plant->id));
+
+Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
 
     if ($request->filled('watering') || $request->filled('lighting') || $request->filled('growing_media')) {
         $plant->tip()->create([
@@ -123,39 +147,106 @@ public function store(Request $request)
      */
     public function edit(string $id)
     {
-        //
+        $plant = Plant::find($id);
+        $categories = PlantCategory::all();
+        $tips = PlantTip::all();
+        return view('admin.plants.edit', compact('plant', 'categories', 'tips'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'plant_name' => 'required|string|max:255',
+        'latin_name' => 'nullable|string|max:255',
+        'category_id' => 'required|exists:plant_categories,id',
+        'location' => 'required|string|max:255',
+        'habitat' => 'required|string|max:255',
+        'stock' => 'required|integer|min:0',
+        'condition' => 'required|string',
+        'health_benefits' => 'required|string',
+        'cultural_benefits' => 'required|string',
+        'description' => 'nullable|string',
+        'photo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        'watering' => 'nullable|string',
+        'lighting' => 'nullable|string',
+        'growing_media' => 'nullable|string',
+    ], [
+        'plant_name.required' => 'The plant name field is required.',
+        'plant_name.string' => 'The plant name must be a string.',
+        'plant_name.max' => 'The plant name may not be greater than 255 characters.',
+        'category_id.required' => 'The category field is required.',
+        'category_id.exists' => 'The selected category is invalid.',
+        'location.required' => 'The location field is required.',
+        'location.string' => 'The location must be a string.',
+        'location.max' => 'The location may not be greater than 255 characters.',
+        'stock.required' => 'The stock field is required.',
+        'stock.integer' => 'The stock must be an integer.',
+        'stock.min' => 'The stock must be at least 0.',
+        'condition.required' => 'The condition field is required.',
+        'health_benefits.required' => 'The health benefits field is required.',
+        'cultural_benefits.required' => 'The cultural benefits field is required.',
+        'photo.image' => 'The photo must be an image.',
+        'photo.mimes' => 'The photo must be a file of type: jpg, png, jpeg.',
+        'photo.max' => 'The photo may not be greater than 2048 kilobytes.',
+
+    ]);
+    $plant = Plant::find($id);
+    if ($request->file('photo')) {
+        $lastFile = storage_path('app/public/' . $plant->photo);
+        if (file_exists($lastFile)) {
+            unlink($lastFile);
+        }
+        $photo = $request->file('photo');
+   $photoName = Str::random(5) . '-plant.' . $photo->getClientOriginalExtension();
+   $path = $photo->storeAs('plants', $photoName, 'public');
+
     }
+    $updateData = Plant::where('id', $id)->update([
+        'user_id' => auth()->id(),
+    'category_id' => $validated['category_id'],
+    'plant_name' => $validated['plant_name'],
+    'latin_name' => $validated['latin_name'] ?? null,
+    'location' => $validated['location'],
+    'stock' => $validated['stock'],
+    'description' => $validated['description'] ?? null,
+    'photo' => $path ?? $plant['photo'],
+    'condition' => $validated['condition'] ?? null,
+    'habitat' => $validated['habitat'] ?? null,
+    'health_benefits' => $validated['health_benefits'] ?? null,
+    'cultural_benefits' => $validated['cultural_benefits'] ?? null,
+
+    ]);
+    if($updateData) {
+        return redirect()->route('admin.plants.index')
+                ->with('success', 'Plant updated successfully');
+        } else {
+            return redirect()->back()->with('error', 'Failed, Please Try again!');
+        }
+    }
+
+    
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
+{
     $plant = Plant::findOrFail($id);
 
-    // ✅ Hapus foto jika ada
+
     if ($plant->photo && Storage::disk('public')->exists($plant->photo)) {
         Storage::disk('public')->delete($plant->photo);
     }
 
-    // ✅ Hapus barcode QR jika ada
-    if ($plant->barcode && Storage::disk('public')->exists($plant->barcode)) {
-        // pastikan barcode adalah file, bukan folder
-        $barcodePath = Storage::disk('public')->path($plant->barcode);
-        if (is_file($barcodePath)) {
-            unlink($barcodePath);
-        }
+
+    if ($plant->barcode && Storage::disk('public')->exists('qrcodes/' . $plant->barcode . '.svg')) {
+        Storage::disk('public')->delete('qrcodes/' . $plant->barcode . '.svg');
     }
 
-    // ✅ Hapus data dari database
+
     $plant->delete();
 
     return redirect()->route('admin.plants.index')->with('success', 'Plant deleted successfully.');

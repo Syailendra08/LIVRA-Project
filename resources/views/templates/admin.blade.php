@@ -117,7 +117,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-livra text-danger">
+                <a href="{{ route('logout') }}" class="nav-link nav-link-livra text-danger">
                     <i class="fa-solid fa-door-open"></i> Log Out
                 </a>
             </li>

@@ -41,7 +41,7 @@
                 <!-- Action Icons -->
                 <div class="action-icons position-absolute top-0 end-0 m-2 d-flex">
                     <!-- Edit -->
-                    <a href="#" class="text-primary me-2">
+                    <a href="{{route('admin.category.edit', $category->id)}}" class="text-primary me-2">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 

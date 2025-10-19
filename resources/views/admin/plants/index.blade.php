@@ -76,8 +76,9 @@
                             <td class="p-3">{{ $plant->location }}</td>
                             <td class="p-3">
                                 @if($plant->barcode)
-                                    <img src="{{ asset('qrcodes/'.$plant->barcode) }}" alt="Barcode" style="height: 32px;">
-                                @endif
+    <img src="{{ asset('storage/qrcodes/' . $plant->barcode . '.svg') }}" alt="Barcode" style="height: 32px;">
+@endif
+
                             </td>
                             <td class="p-3 text-end">
                                 <button class="btn btn-success btn-sm mx-2"
@@ -150,7 +151,7 @@
         : '<em>No photo available</em>';
 
     let barcodeImg = plant.barcode
-        ? `<img src="/qrcodes/${plant.barcode}" alt="QR Code" style="width:100%; max-height: 80px;">` // Barcode disesuaikan agar mirip gambar
+        ? `<img src="/storage/qrcodes/${plant.barcode}.svg" alt="QR Code" style="width:100%; max-height:80px;">` // Barcode disesuaikan agar mirip gambar
         : '<em>No barcode available</em>';
 
 
