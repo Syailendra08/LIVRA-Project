@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\PlantCategoryController;
+use App\Models\Plant;
+use App\Models\User;
+use App\Models\PlantCategory;
 
 Route::get('/', function () {
     return view('home');
@@ -31,7 +34,11 @@ Route::middleware('isLoggedIn')->group(function () {
 
 Route::middleware('isAdmin')->prefix('/admin')->name('admin.')->group(function() {
     Route::get('/dashboard', function() {
-        return view('admin.dashboard');
+        $totalPlants = Plant::count();
+        $totalUsers = User::count();
+        $totalCategories = PlantCategory::count();
+
+    return view('admin.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories'));
     })->name('dashboard');
 
 Route::prefix('plants')->name('plants.')->group(function() {

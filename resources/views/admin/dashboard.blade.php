@@ -101,7 +101,7 @@
                                 <i class="fa-solid fa-list"></i>
                             </div>
                             <h6 class="text-muted  mb-0">Plant Categories</h6>
-                            <h3 class="fw-bold text-gray-900">10</h3>
+                            <h3 class="fw-bold text-gray-900">{{ $totalCategories }}</h3>
                         </div>
                         <div class="text-end">
                             <span class="badge bg-green-light text-green px-2 py-1 rounded-pill">+5%</span>
@@ -117,7 +117,7 @@
                                 <i class="fa-solid fa-spa"></i>
                             </div>
                             <h6 class="text-muted  mb-0">Total Plants</h6>
-                            <h3 class="fw-bold text-gray-900">250</h3>
+                            <h3 class="fw-bold text-gray-900">{{ $totalPlants }}</h3>
                         </div>
                         <div class="text-end">
                             <span class="badge bg-green-light text-green px-2 py-1 rounded-pill">+5%</span>
@@ -149,7 +149,7 @@
                                 <i class="fa-solid fa-user"></i>
                             </div>
                             <h6 class="text-muted  mb-0">Total User</h6>
-                            <h3 class="fw-bold text-gray-900">10</h3>
+                            <h3 class="fw-bold text-gray-900">{{$totalUsers }}</h3>
                         </div>
                         <div class="text-end">
                             <span class="badge bg-green-light text-green px-2 py-1 rounded-pill">+5%</span>

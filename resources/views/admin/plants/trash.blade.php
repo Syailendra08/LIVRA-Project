@@ -34,7 +34,7 @@
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h1 class="h2 fw-semibold">Recycle Bin Of Plants</h1>
         <div class="d-flex align-items-center gap-3">
-            
+
             <a href="{{ route('admin.plants.index') }}" class="btn btn-primary d-flex align-items-center">
                 <i class="fa-solid fa-arrow-left mx-2"></i> Back to Plants
             </a>
@@ -47,7 +47,6 @@
                 <table class="table table-hover table-borderless mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="p-3"></th>
                             <th class="p-3">Name</th>
                             <th class="p-3">Stock Info</th>
                             <th class="p-3">Category</th>
@@ -59,9 +58,6 @@
                     <tbody>
                         @foreach($plantTrash as $plant)
                         <tr>
-                            <td class="p-3">
-                                <input class="form-check-input" type="checkbox">
-                            </td>
                             <td class="p-3">{{ $plant->plant_name }}</td>
                             <td class="p-3">{{ $plant->stock }} In Stock</td>
                             <td class="p-3">{{ $plant->category->category_name ?? '-' }}</td>

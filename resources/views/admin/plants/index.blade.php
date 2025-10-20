@@ -52,7 +52,6 @@
                 <table class="table table-hover table-borderless mb-0">
                     <thead class="bg-light">
                         <tr>
-                            <th class="p-3"></th>
                             <th class="p-3">Name</th>
                             <th class="p-3">Stock Info</th>
                             <th class="p-3">Category</th>
@@ -64,9 +63,6 @@
                     <tbody>
                         @foreach($plants as $plant)
                         <tr>
-                            <td class="p-3">
-                                <input class="form-check-input" type="checkbox">
-                            </td>
                             <td class="p-3">{{ $plant->plant_name }}</td>
                             <td class="p-3">{{ $plant->stock }} In Stock</td>
                             <td class="p-3">{{ $plant->category->category_name ?? '-' }}</td>

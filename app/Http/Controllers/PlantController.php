@@ -236,17 +236,6 @@ Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
 {
     $plant = Plant::findOrFail($id);
 
-
-    if ($plant->photo && Storage::disk('public')->exists($plant->photo)) {
-        Storage::disk('public')->delete($plant->photo);
-    }
-
-
-    if ($plant->barcode && Storage::disk('public')->exists('qrcodes/' . $plant->barcode . '.svg')) {
-        Storage::disk('public')->delete('qrcodes/' . $plant->barcode . '.svg');
-    }
-
-
     $plant->delete();
 
     return redirect()->route('admin.plants.index')->with('success', 'Plant deleted successfully.');
