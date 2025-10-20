@@ -1,35 +1,26 @@
 @extends('templates.admin')
 
 @section('content')
-@if (Session::get('success'))
-    <div class="alert alert-success alert-dismissible fade show alert-top-right" role="alert">
-        {{Session::get('success')}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif
 <div class="container mt-4">
      @if (Session::get('failed'))
             <div class="alert alert-danger">{{ Session::get('failed') }}</div>
         @endif
 
-    <!-- Header -->
+
+
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold">Categories</h2>
-            <small class="text-muted">
-                Last update {{ $lastUpdate->updated_at->format('F d, Y \a\t h:i A') }}
-            </small>
+            <h2 class="fw-bold">Recycle Bin Category</h2>
+            @if (Session::get('success'))
+            <div class="alert alert-success">{{ Session::get('success') }}</div>
+            @endif
+
         </div>
         <div class="d-flex justify-content-end mb-3 mt-4 mx-2">
-            <a href="{{ route('admin.category.trash') }}" class="btn btn-secondary me-2">
-                <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
+            <a href="{{ route('admin.category.index') }}" class="btn btn-primary mb-3">
+                <i class="fa-solid fa-arrow-left mx-2"></i> Back to Categories
             </a>
-        <a href="{{ route('admin.category.export') }}" class="btn btn-info">
-            <i class="fa-solid fa-file-export mx-2"></i> Export Categories
-        </a>
-        <a href="{{ route('admin.category.create') }}" class="btn btn-success">
-            <i class="fa-solid fa-plus mx-3"></i> Add Category
-        </a>
         </div>
 
 
@@ -37,19 +28,23 @@
 
     <!-- Categories Grid -->
    <div class="row g-4">
-    @foreach ($categories as $category)
+    @foreach ($categoryTrash as $category)
         <div class="col-md-4">
             <div class="category-card position-relative">
 
                 <!-- Action Icons -->
                 <div class="action-icons position-absolute top-0 end-0 m-2 d-flex">
                     <!-- Edit -->
-                    <a href="{{route('admin.category.edit', $category->id)}}" class="text-primary me-2">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
+                     <form action="{{route('admin.category.restore', $category['id'])}}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit" class="btn p-0 border-0 bg-transparent text-success me-2">
+                            <i class="fa-solid fa-recycle"></i>
+                        </button>
+                    </form>
 
                     <!-- Delete -->
-                    <form action="{{ route('admin.category.delete', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                    <form class="ms-2" action="{{route('admin.category.delete_permanent', $category['id'])}}" method="POST" >
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn p-0 border-0 bg-transparent text-danger">
@@ -58,7 +53,7 @@
                     </form>
                 </div>
 
-                <!-- Card Content -->
+
                 <div class="category-icon">
                     <i class="fa-solid fa-seedling"></i>
                 </div>

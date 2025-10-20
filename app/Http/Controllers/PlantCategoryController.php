@@ -117,4 +117,21 @@ class PlantCategoryController extends Controller
         $fileName = 'categories_' . date('Y_m_d_H_i_s') . '.xlsx';
         return \Excel::download(new CategoriesExport, $fileName);
     }
+    public function trash()
+    {
+        $categoryTrash = PlantCategory::onlyTrashed()->get();
+        return view('admin.category.trash', compact('categoryTrash'));
+    }
+    public function restore($id)
+    {
+        $category = PlantCategory::onlyTrashed()->find($id);
+        $category->restore();
+        return redirect()->route('admin.category.trash')->with('success', 'Category restored successfully.');
+    }
+    public function deletePermanent($id)
+    {
+        $category = PlantCategory::onlyTrashed()->find($id);
+        $category->forceDelete();
+        return redirect()->back()->with('success', 'Category permanently deleted.');
+    }
 }

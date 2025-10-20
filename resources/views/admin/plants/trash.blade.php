@@ -32,16 +32,11 @@
     @endif
 
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="h2 fw-semibold">Our Plants</h1>
+        <h1 class="h2 fw-semibold">Recycle Bin Of Plants</h1>
         <div class="d-flex align-items-center gap-3">
-            <a href="{{route('admin.plants.trash')}}" class="btn btn-secondary d-flex align-items-center">
-                 <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
-            </a>
-            <a href="{{ route('admin.plants.export') }}" class="btn btn-filter d-flex align-items-center">
-                <i class="fa-solid fa-file-export mx-2"></i> Export Excel
-            </a>
-            <a href="{{ route('admin.plants.create') }}" class="btn btn-add-plants d-flex align-items-center">
-                <i class="fa-solid fa-plus mx-2"></i> Add Plants
+            
+            <a href="{{ route('admin.plants.index') }}" class="btn btn-primary d-flex align-items-center">
+                <i class="fa-solid fa-arrow-left mx-2"></i> Back to Plants
             </a>
         </div>
     </div>
@@ -62,7 +57,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($plants as $plant)
+                        @foreach($plantTrash as $plant)
                         <tr>
                             <td class="p-3">
                                 <input class="form-check-input" type="checkbox">
@@ -102,13 +97,18 @@
     View Detail
 </button>
 
-                                <a href="{{route('admin.plants.edit', $plant->id)}}" class="btn btn-primary btn-sm mx-2">Edit</a>
-                                <form action="{{ route('admin.plants.delete', $plant->id) }}" method="POST" class="d-inline">
+                                <form action="{{route('admin.plants.restore' , $plant['id'])}}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa-solid fa-recycle"></i> Restore
+                                    </button>
+                                </form>
+                                <form action="{{route('admin.plants.delete_permanent' , $plant['id'])}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm mx-2"
-                                        onclick="return confirm('Yakin hapus data ini?')">
-                                        Delete
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash"></i> Delete
                                     </button>
                                 </form>
                             </td>

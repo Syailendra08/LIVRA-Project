@@ -227,7 +227,7 @@ Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
         }
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -257,4 +257,37 @@ Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
         $fileName = 'data-plants.xlsx';
         return \Excel::download(new PlantExport, $fileName);
     }
+    public function trash()
+{
+    $plantTrash = Plant::onlyTrashed()->with(['category', 'tip'])->get();
+    return view('admin.plants.trash', compact('plantTrash'));
+}
+
+public function restore($id)
+{
+    $plant = Plant::onlyTrashed()->findOrFail($id);
+    $plant->restore();
+
+    return redirect()->route('admin.plants.trash')
+        ->with('success', 'Plant restored successfully.');
+}
+
+public function deletePermanent($id)
+{
+    $plant = Plant::onlyTrashed()->findOrFail($id);
+
+    // Hapus file photo & barcode jika masih ada
+    if ($plant->photo && Storage::disk('public')->exists($plant->photo)) {
+        Storage::disk('public')->delete($plant->photo);
+    }
+
+    if ($plant->barcode && Storage::disk('public')->exists('qrcodes/' . $plant->barcode . '.svg')) {
+        Storage::disk('public')->delete('qrcodes/' . $plant->barcode . '.svg');
+    }
+
+    // Hapus permanen dari database
+    $plant->forceDelete();
+
+    return redirect()->back()->with('success', 'Plant permanently deleted.');
+}
 }

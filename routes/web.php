@@ -40,10 +40,13 @@ Route::prefix('plants')->name('plants.')->group(function() {
 
     Route::post('/store', [PlantController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [PlantController::class, 'edit'])->name('edit');
-    Route::post('/update/{id}', [PlantController::class, 'update'])->name('update');
+    Route::put('/update/{id}', [PlantController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantController::class, 'destroy'])->name('delete');
     Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
     Route::get('/export', [PlantController::class, 'exportExcel'])->name('export');
+    Route::get('/trash', [PlantController::class, 'trash'])->name('trash');
+    Route::patch('/restore/{id}', [PlantController::class, 'restore'])->name('restore');
+    Route::delete('/delete-permanent/{id}', [PlantController::class, 'deletePermanent'])->name('delete_permanent');
 
 
     // Add more plant-related routes here
@@ -59,6 +62,10 @@ Route::prefix('category')->name('category.')->group(function() {
     Route::put('/update/{id}', [PlantCategoryController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantCategoryController::class, 'destroy'])->name('delete');
     Route::get('/export', [PlantCategoryController::class, 'exportExcel'])->name('export');
+    Route::get('/trash', [PlantCategoryController::class, 'trash'])->name('trash');
+    Route::patch('/restore/{id}', [PlantCategoryController::class, 'restore'])->name('restore');
+    Route::delete('/delete-permanent/{id}', [PlantCategoryController::class, 'deletePermanent'])->name('delete_permanent');
+
 });
 
 });
