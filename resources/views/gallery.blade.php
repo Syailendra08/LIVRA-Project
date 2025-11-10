@@ -101,6 +101,7 @@
         <!-- Cards -->
         <div class="cards-container">
             @forelse ($plants as $plant)
+             <a href="{{ route('plants.show', $plant->id) }}" class="text-decoration-none text-dark">
                 <div class="card border-0 shadow-sm">
                     <img src="{{ asset('storage/' . $plant->photo) }}"
                          onerror="this.src='{{ asset('images/default-plant.jpg') }}';"
@@ -118,6 +119,7 @@
                         </p>
                     </div>
                 </div>
+             </a>
             @empty
                 <p class="text-center text-muted">No plants available yet.</p>
             @endforelse

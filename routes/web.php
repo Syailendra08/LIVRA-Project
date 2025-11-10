@@ -14,9 +14,7 @@ Route::get('/', function () {
 
  Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
- Route::prefix('/plants')->name('plants.')->group(function() {
-Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
- });
+
 
 
 Route::middleware('isGuest')->group(function () {
@@ -31,11 +29,17 @@ Route::post('/signup', [UserController::class, 'register'])->name('signup.send_d
 });
 
 Route::middleware('isLoggedIn')->group(function () {
-  Route::get('/gallery', function () {
-    $plants = Plant::with('category')->get();
-    return view('gallery', compact('plants'));
-})->name('gallery');
-   });
+
+    Route::get('/gallery', function () {
+        $plants = Plant::with('category')->get();
+        return view('gallery', compact('plants'));
+    })->name('gallery');
+
+    Route::prefix('plants')->name('plants.')->group(function () {
+        Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
+    });
+
+});
 
 
 Route::middleware('isAdmin')->prefix('/admin')->name('admin.')->group(function() {
