@@ -14,6 +14,11 @@ Route::get('/', function () {
 
  Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
+ Route::prefix('/plants')->name('plants.')->group(function() {
+Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
+ });
+
+
 Route::middleware('isGuest')->group(function () {
     Route::get('/login', function () {
     return view('login');
@@ -27,7 +32,8 @@ Route::post('/signup', [UserController::class, 'register'])->name('signup.send_d
 
 Route::middleware('isLoggedIn')->group(function () {
   Route::get('/gallery', function () {
-    return view('gallery');
+    $plants = Plant::with('category')->get();
+    return view('gallery', compact('plants'));
 })->name('gallery');
    });
 
@@ -49,7 +55,7 @@ Route::prefix('plants')->name('plants.')->group(function() {
     Route::get('/edit/{id}', [PlantController::class, 'edit'])->name('edit');
     Route::put('/update/{id}', [PlantController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantController::class, 'destroy'])->name('delete');
-    Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');
+
     Route::get('/export', [PlantController::class, 'exportExcel'])->name('export');
     Route::get('/trash', [PlantController::class, 'trash'])->name('trash');
     Route::patch('/restore/{id}', [PlantController::class, 'restore'])->name('restore');

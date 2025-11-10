@@ -111,7 +111,7 @@ public function store(Request $request)
 
 $qrCode = QrCode::format('svg')
     ->size(200)
-    ->generate(route('admin.plants.show', $plant->id));
+    ->generate(route('plants.show', $plant->id));
 
 Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
 
@@ -139,7 +139,7 @@ Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
     {
         $plant = Plant::findOrFail($id);
 
-    return view('admin.plants.show', compact('plant'));
+    return view('plants.show', compact('plant'));
     }
 
     /**
@@ -241,7 +241,7 @@ Storage::disk('public')->put('qrcodes/' . $plant->barcode . '.svg', $qrCode);
     return redirect()->route('admin.plants.index')->with('success', 'Plant deleted successfully.');
 }
 
-    public function export()
+    public function exportExcel()
     {
         $fileName = 'data-plants.xlsx';
         return \Excel::download(new PlantExport, $fileName);

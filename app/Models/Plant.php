@@ -17,20 +17,20 @@ class Plant extends Model
         return $this->belongsTo(User::class);
     }
 
-    // 🔹 Relasi ke Category (satu Plant punya satu kategori)
+
     public function category()
     {
         return $this->belongsTo(PlantCategory::class, 'category_id');
     }
 
-    // 🔹 Relasi ke PlantTips (satu Plant bisa punya banyak tips)
+
     public function tip()
 {
     return $this->hasOne(PlantTip::class);
 }
 
 
-    // 🔹 Relasi ke PlantProgress (satu Plant bisa punya banyak progress)
+    
     public function progresses()
     {
         return $this->hasMany(PlantProgress::class);

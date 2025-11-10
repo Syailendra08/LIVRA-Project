@@ -2,27 +2,27 @@
 
 @section('content')
 <style>
-      .bg-light-green {
+.bg-light-green {
     background-color: #E2FFB5;
-    }
-      .hero-section {
-        border-radius: 15px;
-        overflow: hidden;
-    }
-    .hero-section img {
-        object-fit: cover;
-        height: 70vh;
-    }
-    .overlay {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-    }
-    .hero-text {
-        max-width: 700px;
-        padding: 15px;
-    }
-    .search-box {
+}
+.hero-section {
+    border-radius: 15px;
+    overflow: hidden;
+}
+.hero-section img {
+    object-fit: cover;
+    height: 70vh;
+}
+.overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.hero-text {
+    max-width: 700px;
+    padding: 15px;
+}
+.search-box {
     display: flex;
     align-items: center;
     background: #fff;
@@ -30,31 +30,35 @@
     padding: 8px 15px;
     max-width: 350px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .search-box i {
+}
+.search-box i {
     font-size: 1.2rem;
     margin-right: 10px;
     color: #333;
-    }
-    .search-box input {
+}
+.search-box input {
     border: none;
     outline: none;
     flex: 1;
     box-shadow: none !important;
-    }
-   .cards-container {
+}
+.cards-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* pas 5 kolom */
     gap: 12px;
 }
 .cards-container .card {
     border-radius: 12px;
-    width: 245px;   /* lebih kecil */
-    height: 330px;  /* lebih tinggi */
-    margin: auto;   /* biar rapi di grid */
+    width: 245px; /* kecil */
+    height: 330px; /* tinggi sedang */
+    margin: auto;
+    transition: transform 0.2s ease;
+}
+.cards-container .card:hover {
+    transform: scale(1.03);
 }
 .cards-container .card img {
-    height: 230px; /* gambar agak tinggi */
+    height: 230px;
     object-fit: cover;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -66,14 +70,12 @@
     padding: 12px;
 }
 </style>
+
 <div class="bg-light-green py-5">
     <div class="container">
         <div class="hero-section position-relative text-center text-white">
-
             <img src="{{ asset('images/hero.jpg') }}" class="img-fluid rounded w-100" alt="Gambar Tanaman Hias">
-
             <div class="overlay"></div>
-
             <div class="hero-text position-absolute top-50 start-50 translate-middle">
                 <h1 class="fw-bold display-5">This is our Plant</h1>
                 <p class="lead">
@@ -83,39 +85,43 @@
             </div>
         </div>
     </div>
+
     <br>
- <!-- Discover Section -->
+
+    <!-- Discover Section -->
     <section class="py-4 px-3 rounded" style="background-color:#E2FFB5;">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div class="search-box mb-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" class="form-control" placeholder="Search anything..">
             </div>
-            <!-- Title -->
             <h3 class="fw-bold mb-0 pb-5">Discover Our Plants</h3>
         </div>
 
         <!-- Cards -->
-        <!-- Cards -->
-<!-- Cards -->
-<div class="cards-container">
-    @for ($i = 0; $i < 5; $i++)
-        <div class="card border-0 shadow-sm">
-            <img src="{{ asset('images/broccoli.jpg') }}"
-                 class="card-img-top" alt="Wortel">
-            <div class="card-body d-flex flex-column justify-content-between">
-                <div>
-                    <h6 class="fw-bold mb-1">Wortel</h6>
-                    <p class="text-muted fst-italic mb-0" style="font-size: 0.85rem;">Daucus carota</p>
+        <div class="cards-container">
+            @forelse ($plants as $plant)
+                <div class="card border-0 shadow-sm">
+                    <img src="{{ asset('storage/' . $plant->photo) }}"
+                         onerror="this.src='{{ asset('images/default-plant.jpg') }}';"
+                         class="card-img-top"
+                         alt="{{ $plant->plant_name }}">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h6 class="fw-bold mb-1">{{ $plant->plant_name }}</h6>
+                            <p class="text-muted fst-italic mb-0" style="font-size: 0.85rem;">
+                                {{ $plant->latin_name ?? '-' }}
+                            </p>
+                        </div>
+                        <p class="fw-bold mb-0 text-end" style="font-size: 0.85rem; color:#2E7D32;">
+                            {{ $plant->stock }} in stock
+                        </p>
+                    </div>
                 </div>
-                <p class="fw-bold mb-0 text-end" style="font-size: 0.85rem; color:#2E7D32;">12 in stock</p>
-            </div>
+            @empty
+                <p class="text-center text-muted">No plants available yet.</p>
+            @endforelse
         </div>
-    @endfor
-</div>
-
     </section>
-</div>
-
 </div>
 @endsection

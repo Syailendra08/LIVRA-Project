@@ -11,7 +11,7 @@ class PlantTip extends Model
 
    protected $fillable = ['plant_id', 'watering', 'lighting', 'growing_media'];
 
-    // 🔹 Satu tip dimiliki oleh satu tanaman
+   
     public function plant()
     {
         return $this->belongsTo(Plant::class, 'plant_id');
