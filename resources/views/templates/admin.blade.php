@@ -83,12 +83,20 @@
 
         <ul class="nav flex-column mb-3">
             <li class="nav-item">
+                @if (auth()->user()->role == 'admin')
                 <a href="{{ route('admin.dashboard') }}"
                     class="nav-link nav-link-livra {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
                     <i class="fa-solid fa-grip"></i> Dashboard
                 </a>
+                @elseif (auth()->user()->role == 'staff')
+                <a href="{{ route('staff.dashboard') }}"
+                    class="nav-link nav-link-livra {{ Request::routeIs('staff.dashboard') ? 'active' : '' }}">
+                    <i class="fa-solid fa-grip"></i> Dashboard
+                </a>
+                @endif
             </li>
             <p class="section-title">Plant Management</p>
+            @if (Auth::check() && Auth::user()->role == 'admin')
             <li class="nav-item">
                 <a href="{{ route('admin.plants.index') }}"
                     class="nav-link nav-link-livra {{ Request::routeIs('admin.plants.index*') ? 'active' : '' }}">
@@ -100,11 +108,13 @@
                     <i class="fa-solid fa-layer-group"></i> Plant Categories
                 </a>
             </li>
+            @elseif (Auth::check() && Auth::user()->role == 'staff')
             <li class="nav-item">
                 <a href="#" class="nav-link nav-link-livra">
                     <i class="fa-solid fa-bars-progress"></i> Plant Progress
                 </a>
             </li>
+            @endif
         </ul>
 
         <hr class="my-4">

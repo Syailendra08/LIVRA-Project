@@ -88,5 +88,11 @@ Route::prefix('category')->name('category.')->group(function() {
 });
 
 Route::middleware('isStaff')->prefix('/staff')->name('staff.')->group(function() {
+Route::get('/dashboard', function() {
+        $totalPlants = Plant::count();
+        $totalUsers = User::count();
+        $totalCategories = PlantCategory::count();
 
+    return view('staff.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories'));
+    })->name('dashboard');
 });

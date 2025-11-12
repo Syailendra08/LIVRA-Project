@@ -16,7 +16,7 @@ class isStaff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role == 'staff') {
+        if(Auth::check() && Auth::user()->role === 'staff') {
             return $next($request);
         } else {
             return redirect()->back()->with('accessDenied', 'Only Staff who has an access!');

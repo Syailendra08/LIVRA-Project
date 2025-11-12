@@ -119,8 +119,11 @@ class UserController extends Controller
         ]);
 
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
                 if (Auth::user()->role === 'admin') {
                     return redirect()->route('admin.dashboard')->with('success', 'Login successful. Welcome Admin!');
+                } elseif (Auth::user()->role === 'staff') {
+                    return redirect()->route('staff.dashboard')->with('success', 'Login successful. Welcome Staff!');
                 } else {
                     return redirect()->route('home')->with('success', 'Login successful. Welcome back!');
                 }
