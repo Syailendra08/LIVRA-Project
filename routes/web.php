@@ -86,3 +86,7 @@ Route::prefix('category')->name('category.')->group(function() {
 });
 
 });
+
+Route::middleware('isStaff')->prefix('/staff')->name('staff.')->group(function() {
+
+});

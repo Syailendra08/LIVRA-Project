@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'isLoggedIn' => App\Http\Middleware\isLoggedIn::class,
             'isGuest' => App\Http\Middleware\isGuest::class,
             'isAdmin' => App\Http\Middleware\isAdmin::class,
+            'isStaff' => App\Http\Middleware\isStaff::class,
 
         ]);
     })
