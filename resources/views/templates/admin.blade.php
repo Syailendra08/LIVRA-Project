@@ -108,6 +108,10 @@
                     <i class="fa-solid fa-layer-group"></i> Plant Categories
                 </a>
             </li>
+            <p class="section-title">User Management</p>
+            <a href="{{route('admin.users.index')}}" class="nav-link nav-link-livra">
+                    <i class="fa-solid fa-users"></i></i> User Data
+                </a>
             @elseif (Auth::check() && Auth::user()->role == 'staff')
             <li class="nav-item">
                 <a href="#" class="nav-link nav-link-livra">

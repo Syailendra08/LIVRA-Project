@@ -85,6 +85,10 @@ Route::prefix('category')->name('category.')->group(function() {
 
 });
 
+Route::prefix('users')->name('users.')->group(function() {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+});
+
 });
 
 Route::middleware('isStaff')->prefix('/staff')->name('staff.')->group(function() {
