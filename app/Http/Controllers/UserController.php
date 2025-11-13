@@ -31,7 +31,32 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'name' => 'required|min:3',
+        'email' => 'required|email:dns',
+        'password' => 'required|min:8',
+
+    ], [
+        'name.required' => 'Name is required.',
+        'name.min' => 'Name must be at least 3 characters.',
+        'email.required' => 'Email is required.',
+        'email.email' => 'Email must be a valid address.',
+        'password.required' => 'Password is required.',
+        'password.min' => 'Password must be at least 8 characters.',
+    ]
+);
+
+    $createUser = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'staff', // staff/admin
+    ]);
+   if ($createUser) {
+    return redirect()->route('admin.users.index')->with('success', 'Berhasil, pengguna berhasil ditambahkan!');
+} else {
+    return redirect()->route('admin.users.index')->with('error', 'Gagal, pengguna gagal ditambahkan!');
+}
     }
 
     /**
