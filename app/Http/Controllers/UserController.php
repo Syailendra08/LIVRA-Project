@@ -53,9 +53,9 @@ class UserController extends Controller
         'role' => 'staff', // staff/admin
     ]);
    if ($createUser) {
-    return redirect()->route('admin.users.index')->with('success', 'Berhasil, pengguna berhasil ditambahkan!');
+    return redirect()->route('admin.users.index')->with('success', 'Success, user has been added!');
 } else {
-    return redirect()->route('admin.users.index')->with('error', 'Gagal, pengguna gagal ditambahkan!');
+    return redirect()->route('admin.users.index')->with('error', 'Failed, user failed to added!');
 }
     }
 
@@ -70,25 +70,60 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        {
+        $user = User::find($id);
+        return view('admin.users.edit', compact('user'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3',
+            'email' => 'required|email:dns',
+            'password' => 'required|min:8',
+
+        ], [
+            'name.required' => 'Name is required.',
+            'name.min' => 'Name must be at least 3 characters.',
+            'email.required' => 'Email is required.',
+            'email.email' => 'Email must be a valid address.',
+            'password.required' => 'Password is required.',
+            'password.min' => 'Password must be at least 8 characters.',
+        ]
+        );
+
+        $updateUser = User::where('id', $id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'staff'
+        ]);
+        if ($updateUser) {
+            return redirect()->route('admin.users.index')->with('success', 'Success, Staff has been updated!');
+        } else {
+            return redirect()->route('admin.users.index')->with('error', 'Failed, to update the staff!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+         {
+        $deleteData = User::where('id', $id)->delete();
+        if($deleteData) {
+            return redirect()->route('admin.users.index')->with('success', 'Success the user data has been deleted!');
+        }else {
+            return redirect()->back()->with('error', 'Failed to deleted the data!');
+        }
+    }
     }
 
     public function register(Request $request)
