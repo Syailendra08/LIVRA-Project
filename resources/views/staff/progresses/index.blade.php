@@ -233,7 +233,7 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">
+        <button class="btn text-white" style=" background: #267C5D;" data-bs-toggle="modal" data-bs-target="#modalAdd">
           + Add Progress
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
