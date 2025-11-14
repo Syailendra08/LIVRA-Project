@@ -21,6 +21,35 @@
     .btn-filter:hover {
         background-color: #a7f3d0;
     }
+    .modal-header-custom {
+            background: #267C5D;
+            color: white;
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+        }
+        .input-custom {
+            border: 2px solid #C8E8C9;
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+        .input-custom:focus {
+            border: 2px solid #1F8F3A;
+            box-shadow: none;
+        }
+        .btn-cancel {
+            background: #F34236;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+        }
+        .btn-save {
+            background: #3DD86F;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+        }
 </style>
 
 <div class="container-fluid py-4 px-3">
@@ -93,37 +122,7 @@
 </div>
 {{-- modal --}}
 <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
-    <style>
-        .modal-header-custom {
-            background: #1F8F3A;
-            color: white;
-            border-bottom: none;
-            padding: 1rem 1.5rem;
-        }
-        .input-custom {
-            border: 2px solid #C8E8C9;
-            border-radius: 12px;
-            padding: 10px 12px;
-        }
-        .input-custom:focus {
-            border: 2px solid #1F8F3A;
-            box-shadow: none;
-        }
-        .btn-cancel {
-            background: #F34236;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            border: none;
-        }
-        .btn-save {
-            background: #3DD86F;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            border: none;
-        }
-    </style>
+
 
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4">
@@ -216,13 +215,13 @@
         </div>
     </div>
 </div>
-{{-- end of modal --}}
+{{-- end of modal --}},
 
 <!-- Modal: View Progress -->
 <div class="modal fade" id="modalProgress" tabindex="-1" aria-labelledby="modalProgressLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header bg-success text-white">
+      <div class="modal-header  text-white" style=" background: #267C5D;">
         <h5 class="modal-title" id="modalProgressLabel">
           <i class="fa-solid fa-seedling"></i> Progress - <span id="plantName">Plant Name</span>
         </h5>
