@@ -114,7 +114,7 @@
                 </a>
             @elseif (Auth::check() && Auth::user()->role == 'staff')
             <li class="nav-item">
-                <a href="#" class="nav-link nav-link-livra">
+                <a href="{{route('staff.progress.index')}}" class="nav-link nav-link-livra">
                     <i class="fa-solid fa-bars-progress"></i> Plant Progress
                 </a>
             </li>

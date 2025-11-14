@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Plant;
+use App\Models\PlantCategory;
+use App\Models\PlantProgress;
 use Illuminate\Http\Request;
 
 class PlantProgressController extends Controller
@@ -11,7 +13,13 @@ class PlantProgressController extends Controller
      */
     public function index()
     {
-        //
+          $categories = PlantCategory::all();
+
+           
+          $plants = Plant::with(['category', 'progresses'])->get();
+
+    return view('staff.progresses.index', compact('plants', 'categories'));
+
     }
 
     /**
@@ -27,7 +35,34 @@ class PlantProgressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category_id' => 'required',
+            'plant_id' => 'required',
+            'description' => 'required',
+            'progress_type' => 'required',
+            'progress_date' => 'required',
+
+        ], [
+            'category_id.required' => 'You need to choose category',
+            'plant_id.required' => 'You need to choose plant',
+            'description.required' => 'Description is required',
+            'progress_type.required' => 'Progress is required',
+            'progress_date.required' => 'Progress date is required',
+        ]);
+
+        $createData = PlantProgress::create([
+            'category_id' => $request->category_id,
+            'plant_id' => $request->plant_id,
+            'description' => $request->description,
+            'progress_type'=> $request->progress_type,
+            'progress_date' => $request->progress_date,
+
+        ]);
+        if ($createData) {
+            return redirect()->route('staff.progress.index')->with('success', 'Progress has been added');
+        } else {
+            return redirect()->back()->with('failed', 'Progress failed to added.');
+        }
     }
 
     /**

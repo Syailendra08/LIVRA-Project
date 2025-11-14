@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\PlantCategoryController;
+use App\Http\Controllers\PlantProgressController;
 use App\Models\Plant;
 use App\Models\User;
 use App\Models\PlantCategory;
@@ -106,4 +107,11 @@ Route::get('/dashboard', function() {
 
     return view('staff.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories'));
     })->name('dashboard');
+
+Route::prefix('progresses')->name('progress.')->group(function(){
+    Route::get('/', [PlantProgressController::class, 'index'])->name('index');
+    Route::post('/store', [PlantProgressController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [PlantProgressController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [PlantProgressController::class, 'update'])->name('update');
+});
 });

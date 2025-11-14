@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PlantProgress extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['user_id', 'plant_id', 'description', 'progress_type', 'progress_date'];
+    protected $fillable = ['category_id', 'plant_id', 'description', 'progress_type', 'progress_date'];
+    public function plant()
+{
+    return $this->belongsTo(Plant::class);
+}
+ public function category()
+    {
+        return $this->belongsTo(PlantCategory::class, 'category_id');
+    }
 }
