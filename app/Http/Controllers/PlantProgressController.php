@@ -15,7 +15,7 @@ class PlantProgressController extends Controller
     {
           $categories = PlantCategory::all();
 
-           
+
           $plants = Plant::with(['category', 'progresses'])->get();
 
     return view('staff.progresses.index', compact('plants', 'categories'));
@@ -78,7 +78,11 @@ class PlantProgressController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = PlantCategory::all();
+
+
+          $plants = Plant::with(['category', 'progresses'])->get();
+        return view('staff.progresses.edit', compact('plants', 'categories'));
     }
 
     /**
@@ -86,7 +90,27 @@ class PlantProgressController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+            'progress_type' => 'required',
+            'progress_date' => 'required',
+
+        ], [
+            'description.required' => 'Description is required',
+            'progress_type.required' => 'Progress is required',
+            'progress_date.required' => 'Progress date is required',
+        ]);
+        $updateData = PlantProgress::where('id', $id)->update([
+        'description'    => $request->description,
+            'progress_type'  => $request->progress_type,
+        'progress_date'  => $request->progress_date,
+        ]);
+
+        if($updateData){
+            return redirect()->route('staff.progress.index')->with('success', 'Progress update successfully!');
+        }else {
+            return redirect()->back()->with('error', 'failed! please try again');
+        }
     }
 
     /**
