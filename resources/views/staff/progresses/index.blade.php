@@ -50,6 +50,33 @@
             border-radius: 20px;
             border: none;
         }
+        .modal-edit-header {
+        background: #267C5D;
+        color: white;
+        border-bottom: none;
+        padding: 1rem 1.5rem;
+    }
+
+    /* Card list item */
+    .edit-item {
+        border-bottom: 1px solid #e0e0e0;
+        padding: 12px 6px;
+    }
+
+    /* Tombol edit */
+    .btn-edit-modal {
+        background: #267C5D;
+        color: white;
+        border-radius: 20px;
+        padding: 6px 14px;
+        font-weight: 500;
+        border: none;
+    }
+
+    /* Modal footer */
+    .modal-edit-footer .btn-secondary {
+        border-radius: 20px;
+    }
 </style>
 
 <div class="container-fluid py-4 px-3">
@@ -102,7 +129,11 @@
 
                             </td>
                             <td>
-                                <a href="#" class="btn btn-primary btn-sm mx-2">Edit</a>
+                                <button class="btn btn-primary btn-sm mx-2"
+        onclick='showEditModal({!! json_encode($progress) !!})'>
+    Edit
+</button>
+
                                 <form action="#" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
@@ -241,6 +272,29 @@
     </div>
   </div>
 </div>
+<!-- Modal: Choose Progress to Edit -->
+<div class="modal fade" id="modalChooseEdit" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header modal-edit-header">
+        <h5 class="modal-title">
+          <i class="fa-solid fa-pen-to-square"></i> Edit Progress - <span id="editPlantName"></span>
+        </h5>
+        <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="editProgressList">
+        {{-- Dynamic list of progress --}}
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('script')
@@ -285,5 +339,50 @@ function showProgressModal(data) {
     modal.show();
 }
 </script>
+
+<script>
+function showEditModal(data) {
+
+    console.log(data) // CEK data progress
+
+    document.getElementById("editPlantName").textContent = data.plant_name;
+
+    let list = document.getElementById("editProgressList");
+    list.innerHTML = "";
+
+    if (data.progresses && data.progresses.length > 0) {
+
+        data.progresses.forEach(p => {
+
+            console.log(p);
+ // CEK isi progress, nama field ID apa
+
+            list.innerHTML += `
+                <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                    <div>
+                        <strong>${new Date(p.progress_date).toLocaleDateString()}</strong><br>
+                        <small>${p.progress_type.toUpperCase()}</small><br>
+                        <small class="text-muted">${p.description}</small>
+                    </div>
+
+                   <a href="/staff/progresses/edit/${p.progress_id}" class="btn btn-sm btn-primary">
+    Edit
+</a>
+
+
+
+                </div>
+            `;
+        });
+
+    } else {
+        list.innerHTML = `<p class="text-muted text-center">No progress available.</p>`;
+    }
+
+    new bootstrap.Modal(document.getElementById('modalChooseEdit')).show();
+}
+</script>
+
+
 @endpush
 

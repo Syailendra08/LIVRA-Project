@@ -78,11 +78,20 @@ class PlantProgressController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = PlantCategory::all();
+        // Ambil progress ID yang diklik
+    $progress = PlantProgress::find($id);
 
+    if (!$progress) {
+        abort(404, 'Progress not found');
+    }
 
-          $plants = Plant::with(['category', 'progresses'])->get();
-        return view('staff.progresses.edit', compact('plants', 'categories'));
+    // Ambil plant berdasarkan progress->plant_id
+    $plant = Plant::find($progress->plant_id);
+
+    // Ambil kategori untuk dropdown
+    $categories = PlantCategory::all();
+
+    return view('staff.progresses.edit', compact('plant', 'progress', 'categories'));
     }
 
     /**
@@ -100,7 +109,7 @@ class PlantProgressController extends Controller
             'progress_type.required' => 'Progress is required',
             'progress_date.required' => 'Progress date is required',
         ]);
-        $updateData = PlantProgress::where('id', $id)->update([
+        $updateData = PlantProgress::where('progress_id', $id)->update([
         'description'    => $request->description,
             'progress_type'  => $request->progress_type,
         'progress_date'  => $request->progress_date,

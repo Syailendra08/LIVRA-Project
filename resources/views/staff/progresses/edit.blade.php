@@ -2,82 +2,43 @@
 
 @section('content')
 <div class="container my-5">
-     <form method="POST" action="{{ route('staff.progress.update', $plants->id) }}">
-                @csrf
-                @method('PUT')
-                <div class="modal-body px-4">
 
-                    {{-- Category --}}
-                    <label class="fw-semibold mb-1">Plant Category</label>
-                    <select name="category_id" id="category_id"
-                        class="form-select input-custom mb-3 @error('category_id') is-invalid @enderror">
-                        <option hidden disabled selected>Choose Category...</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('category_id')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+    <h3 class="mb-4">Edit Progress for Plant: {{ $plant->plant_name }}</h3>
 
-                    {{-- Plant --}}
-                    <label class="fw-semibold mb-1">Plant</label>
-                    <select name="plant_id" id="plant_id"
-                        class="form-select input-custom mb-3 @error('plant_id') is-invalid @enderror">
-                        <option hidden disabled selected>Choose Plant...</option>
-                        @foreach ($plants as $plant)
-                            <option value="{{ $plant->id }}">{{ $plant->plant_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('plant_id')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+    <form method="POST" action="{{ route('staff.progress.update', $progress->progress_id) }}">
+        @csrf
+        @method('PUT')
 
-                    <div class="row">
-                        {{-- Date --}}
-                        <div class="col-md-6">
-                            <label class="fw-semibold mb-1">Progress Date</label>
-                            <input type="date" name="progress_date" id="progress_date"
-                                class="form-control input-custom @error('progress_date') is-invalid @enderror">
-                            @error('progress_date')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
+        <div class="card p-3 mb-4">
 
-                        {{-- Progress Type --}}
-                        <div class="col-md-6">
-                            <label class="fw-semibold mb-1">Progress Type</label>
-                            <select name="progress_type" id="progress_type"
-                                class="form-select input-custom @error('progress_type') is-invalid @enderror">
-                                <option hidden disabled selected>Choose Type...</option>
-                                <option value="planting">Planting</option>
-                                <option value="maintenance">Maintenance</option>
-                                <option value="harvesting">Harvesting</option>
-                            </select>
-                            @error('progress_type')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
+            <label>Category</label>
+            <select class="form-select mb-2" disabled>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ $category->id == $progress->category_id ? 'selected' : '' }}>
+                        {{ $category->category_name }}
+                    </option>
+                @endforeach
+            </select>
 
-                    {{-- Description --}}
-                    <label class="fw-semibold mt-3 mb-1">Description</label>
-                    <textarea name="description" id="description" rows="3"
-                        class="form-control input-custom @error('description') is-invalid @enderror"
-                        placeholder="Write progress details here..."></textarea>
-                    @error('description')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+            <label>Progress Date</label>
+            <input type="date" class="form-control"
+                   name="progress_date" value="{{ $progress->progress_date }}">
 
-                </div>
+            <label>Progress Type</label>
+            <select class="form-select" name="progress_type">
+                <option value="planting" {{ $progress->progress_type == 'planting' ? 'selected' : '' }}>Planting</option>
+                <option value="maintenance" {{ $progress->progress_type == 'maintenance' ? 'selected' : '' }}>Maintenance</option>
+                <option value="harvesting" {{ $progress->progress_type == 'harvesting' ? 'selected' : '' }}>Harvesting</option>
+            </select>
 
-                <!-- FOOTER -->
-                <button type="submit" class="btn btn-primary">Kirim</button>
-                </div>
-            </form>
+            <label>Description</label>
+            <textarea class="form-control" name="description">{{ $progress->description }}</textarea>
 
         </div>
-    </div>
-</div>
+
+        <button type="submit" class="btn btn-primary">Update Progress</button>
+    </form>
+
 </div>
 @endsection

@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PlantProgress extends Model
 {
     use SoftDeletes;
+    protected $table = 'plant_progress';
+    protected $primaryKey = 'progress_id'; // <---- INI WAJIB
+    public $incrementing = true;
+    protected $keyType = 'int';
     protected $fillable = ['category_id', 'plant_id', 'description', 'progress_type', 'progress_date'];
     public function plant()
 {

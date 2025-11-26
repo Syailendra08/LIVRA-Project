@@ -44,6 +44,7 @@ Route::middleware('isLoggedIn')->group(function () {
 
 
 Route::middleware('isAdmin')->prefix('/admin')->name('admin.')->group(function() {
+    Route::get('/plants/chart', [PlantController::class, 'dataChart'])->name('plants.chart');
     Route::get('/dashboard', function() {
         $totalPlants = Plant::count();
         $totalUsers = User::count();
