@@ -311,6 +311,7 @@
 
             <p><strong>Location:</strong> {{ $plant->location }}</p>
             <p><strong>Stock:</strong> {{ $plant->stock }}</p>
+<p><strong>Progress:</strong> {{ $plant->status }}</p>
         </div>
     </div>
 </div>

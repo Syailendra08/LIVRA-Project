@@ -36,6 +36,9 @@ Route::middleware('isLoggedIn')->group(function () {
         $plants = Plant::with('category')->get();
         return view('gallery', compact('plants'));
     })->name('gallery');
+    Route::get('/gallery', [PlantController::class, 'gallery'])->name('gallery');
+
+
 
     Route::prefix('plants')->name('plants.')->group(function () {
         Route::get('/show/{id}', [PlantController::class, 'show'])->name('show');

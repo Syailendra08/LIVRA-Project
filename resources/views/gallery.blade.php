@@ -91,10 +91,26 @@
     <!-- Discover Section -->
     <section class="py-4 px-3 rounded" style="background-color:#E2FFB5;">
         <div class="d-flex justify-content-between align-items-center mb-4">
+            <form action="{{ route('gallery')}}" method="GET">
+                @csrf
             <div class="search-box mb-4">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" class="form-control" placeholder="Search anything..">
+                <input type="text" name="search_plant" class="form-control" placeholder="Search anything..">
             </div>
+            </form>
+            <div class="dropdown mb-3">
+    <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        Sort By
+    </button>
+
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ route('gallery', ['sort' => 'category']) }}">Category</a></li>
+        <li><a class="dropdown-item" href="{{ route('gallery', ['sort' => 'alphabet']) }}">Alphabet (A-Z)</a></li>
+        <li><a class="dropdown-item" href="{{ route('gallery', ['sort' => 'newest']) }}">Newest</a></li>
+        <li><a class="dropdown-item" href="{{ route('gallery', ['sort' => 'oldest']) }}">Oldest</a></li>
+    </ul>
+</div>
+
             <h3 class="fw-bold mb-0 pb-5">Discover Our Plants</h3>
         </div>
 

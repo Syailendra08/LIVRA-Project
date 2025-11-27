@@ -309,4 +309,43 @@ public function deletePermanent($id)
         'data'   => $data
     ]);
     }
+
+    public function gallery(Request $request)
+{
+    $search = $request->input('search_plant');
+    $sort   = $request->query('sort');
+
+    $plants = Plant::with('category')
+        ->when($search, function ($query) use ($search) {
+            $query->where('plant_name', 'like', '%' . $search . '%')
+                  ->orWhere('location', 'like', '%' . $search . '%');
+        });
+
+    // Sorting plant
+    switch ($sort) {
+        case 'alphabet':
+            $plants->orderBy('plant_name', 'asc');
+            break;
+
+        case 'category':
+            $plants->orderBy(
+                Category::select('category_name')
+                    ->whereColumn('categories.id', 'plants.category_id')
+            );
+            break;
+
+        case 'newest':
+            $plants->orderBy('created_at', 'desc');
+            break;
+
+        case 'oldest':
+            $plants->orderBy('created_at', 'asc');
+            break;
+    }
+
+    $plants = $plants->get();
+
+    return view('gallery', compact('plants', 'search', 'sort'));
+}
+
 }
