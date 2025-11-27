@@ -166,7 +166,7 @@
                     <h5 class="fw-bold text-gray-800">Plant Chart</h5>
                     <div class="d-flex align-items-center justify-content-center flex-wrap flex-grow-1">
                         <div class="w-50">
-                            <canvas id="pieChart"></canvas>
+                            <canvas id="chartPie"></canvas>
                         </div>
 
                     </div>
@@ -179,7 +179,7 @@
                         <button class="btn btn-outline-secondary btn-sm rounded-pill">Yearly <i
                                 class="bi bi-chevron-down"></i></button>
                     </div>
-                    <canvas id="barChart"></canvas>
+                    <canvas id="chartBar"></canvas>
                 </div>
             </div>
         </div>
@@ -218,3 +218,56 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let labelChartPie = null;
+    let dataChartPie = null;
+
+    $(function () {
+
+        $.ajax({
+            url: "{{ route('admin.plants.chart') }}",
+            method: "GET",
+            success: function(response) {
+                labelChartPie = response.labels;
+                dataChartPie = response.data;
+
+                showChartPie();
+            },
+            error: function() {
+                alert("Gagal mengambil data chart tanaman!");
+            }
+        });
+
+    });
+
+    function showChartPie() {
+        const ctx = document.getElementById('chartPie');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labelChartPie,
+                datasets: [{
+                    label: 'Persentase Tanaman per Kategori (%)',
+                    data: dataChartPie,
+                    backgroundColor: [
+                        'rgb(75, 192, 192)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 205, 86)',
+                        'rgb(54, 162, 235)',
+                        'rgb(201, 203, 207)',
+                    ],
+                    hoverOffset: 6
+                }]
+            }
+        });
+    }
+</script>
+
+
+@endpush

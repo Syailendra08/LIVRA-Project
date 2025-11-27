@@ -279,4 +279,34 @@ public function deletePermanent($id)
 
     return redirect()->back()->with('success', 'Plant permanently deleted.');
 }
+
+    public function dataChart()
+    {
+      // Ambil semua kategori + jumlah tanaman per kategori
+    $categories = PlantCategory::withCount('plants')->get();
+
+    // Hitung total tanaman
+    $totalPlants = Plant::count();
+
+    // Siapkan label dan data persentase
+    $labels = [];
+    $data = [];
+
+    foreach ($categories as $category) {
+        $labels[] = $category->category_name;
+
+        // Hitung persentase
+        $percentage = $totalPlants > 0
+            ? ($category->plants_count / $totalPlants) * 100
+            : 0;
+
+        // simpan hasil count ke array data
+        $data[] = round($percentage, 2);
+    }
+
+    return response()->json([
+        'labels' => $labels,
+        'data'   => $data
+    ]);
+    }
 }
