@@ -329,8 +329,8 @@ public function deletePermanent($id)
 
         case 'category':
             $plants->orderBy(
-                Category::select('category_name')
-                    ->whereColumn('categories.id', 'plants.category_id')
+                PlantCategory::select('category_name')
+                    ->whereColumn('plant_categories.id', 'plants.category_id')
             );
             break;
 
