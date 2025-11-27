@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use App\Exports\PlantExport;
 use Maatwebsite\Excel\Facades\Excel;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class PlantController extends Controller
@@ -346,6 +347,18 @@ public function deletePermanent($id)
     $plants = $plants->get();
 
     return view('gallery', compact('plants', 'search', 'sort'));
+}
+
+
+
+public function exportPdf($id)
+{
+    $plant = Plant::with(['category', 'tip'])->findOrFail($id);
+
+    $pdf = Pdf::loadView('plants.pdf', compact('plant'))
+                ->setPaper('A4', 'portrait');
+
+    return $pdf->download('plant-'.$plant->plant_name.'.pdf');
 }
 
 }

@@ -37,6 +37,8 @@ Route::middleware('isLoggedIn')->group(function () {
         return view('gallery', compact('plants'));
     })->name('gallery');
     Route::get('/gallery', [PlantController::class, 'gallery'])->name('gallery');
+    Route::get('/plants/{id}/pdf', [PlantController::class, 'exportPdf'])->name('plants.pdf');
+
 
 
 
