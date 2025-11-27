@@ -58,11 +58,17 @@ class PlantProgressController extends Controller
             'progress_date' => $request->progress_date,
 
         ]);
-        if ($createData) {
-            return redirect()->route('staff.progress.index')->with('success', 'Progress has been added');
-        } else {
-            return redirect()->back()->with('failed', 'Progress failed to added.');
+        if ($createData) { // Melibatkan lebih dari satu operasi data, masuk kriteria transaksi
+        $plant = Plant::find($request->plant_id);
+        if ($plant) {
+            $plant->status = $request->progress_type;
+            $plant->save();
         }
+
+        return redirect()->route('staff.progress.index')->with('success', 'Progress has been added and plant status updated.');
+    } else {
+        return redirect()->back()->with('failed', 'Progress failed to added.');
+    }
     }
 
     /**

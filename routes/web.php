@@ -8,6 +8,7 @@ use App\Http\Controllers\PlantProgressController;
 use App\Models\Plant;
 use App\Models\User;
 use App\Models\PlantCategory;
+use App\Models\PlantProgress;
 
 Route::get('/', function () {
     return view('home');
@@ -49,8 +50,9 @@ Route::middleware('isAdmin')->prefix('/admin')->name('admin.')->group(function()
         $totalPlants = Plant::count();
         $totalUsers = User::count();
         $totalCategories = PlantCategory::count();
+        $totalProgresses =PlantProgress::count();
 
-    return view('admin.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories'));
+    return view('admin.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories', 'totalProgresses'));
     })->name('dashboard');
 
 Route::prefix('plants')->name('plants.')->group(function() {

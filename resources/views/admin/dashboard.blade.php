@@ -133,7 +133,7 @@
                                 <i class="fa-solid fa-spinner"></i>
                             </div>
                             <h6 class="text-muted  mb-0">Total Progress</h6>
-                            <h3 class="fw-bold text-gray-900">120</h3>
+                            <h3 class="fw-bold text-gray-900">{{$totalProgresses}}</h3>
                         </div>
                         <div class="text-end">
                             <span class="badge bg-green-light text-green px-2 py-1 rounded-pill">+5%</span>
@@ -163,7 +163,7 @@
         <div class="row g-4 mb-4 d-flex align-items-stretch">
             <div class="col-lg-6 d-flex">
                 <div class="card p-4 shadow-sm rounded-3 border-0 w-100">
-                    <h5 class="fw-bold text-gray-800">Plant Chart</h5>
+                    <h5 class="fw-bold text-gray-800">Plant Categories</h5>
                     <div class="d-flex align-items-center justify-content-center flex-wrap flex-grow-1">
                         <div class="w-50">
                             <canvas id="chartPie"></canvas>
@@ -253,7 +253,7 @@
             data: {
                 labels: labelChartPie,
                 datasets: [{
-                    label: 'Persentase Tanaman per Kategori (%)',
+                    label: 'Plant Percentage by Category (%)',
                     data: dataChartPie,
                     backgroundColor: [
                         'rgb(75, 192, 192)',
