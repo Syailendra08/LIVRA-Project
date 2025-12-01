@@ -106,6 +106,7 @@
         <p><b>Category:</b> {{ $plant->category->category_name }}</p>
         <p><b>Stock:</b> {{ $plant->stock }}</p>
         <p><b>Condition:</b> {{ $plant->condition }}</p>
+        <p><b>Progress:</b> {{ $plant->status }}</p>
     </div>
 
     <div class="qr">

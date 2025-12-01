@@ -65,12 +65,10 @@
 
     /* Tombol edit */
     .btn-edit-modal {
-        background: #267C5D;
-        color: white;
         border-radius: 20px;
         padding: 6px 14px;
         font-weight: 500;
-        border: none;
+
     }
 
     /* Modal footer */
@@ -129,19 +127,12 @@
 
                             </td>
                             <td>
-                                <button class="btn btn-primary btn-sm mx-2"
+                                <button class="btn btn-outline-secondary btn-sm mx-2"
         onclick='showEditModal({!! json_encode($progress) !!})'>
-    Edit
+    <i class="fa-solid fa-gear"> </i> Manages
 </button>
 
-                                <form action="#" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm mx-2"
-                                        onclick="return confirm('Yakin hapus data ini?')">
-                                        Delete
-                                    </button>
-                                </form>
+
                             </td>
                         </tr>
                         @endforeach
@@ -279,7 +270,7 @@
 
       <div class="modal-header modal-edit-header">
         <h5 class="modal-title">
-          <i class="fa-solid fa-pen-to-square"></i> Edit Progress - <span id="editPlantName"></span>
+          <i class="fa-solid fa-pen-to-square"></i> Edit & Delete Progress - <span id="editPlantName"></span>
         </h5>
         <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
@@ -365,13 +356,25 @@ function showEditModal(data) {
                         <small class="text-muted">${p.description}</small>
                     </div>
 
-                   <a href="/staff/progresses/edit/${p.progress_id}" class="btn btn-sm btn-primary">
-    Edit
-</a>
+                    <div class="d-flex flex-column gap-2">
 
+            <a href="/staff/progresses/edit/${p.progress_id}"
+               class="btn btn-sm btn-primary btn-edit-modal">
+                Edit
+            </a>
 
+            <form method="POST" action="{{ url('staff/progresses/delete') }}/${p.progress_id}"
+                  onsubmit="return confirm('Yakin ingin menghapus progress ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger btn-edit-modal" !important>
+                    Delete
+                </button>
+            </form>
 
-                </div>
+        </div>
+
+    </div>
             `;
         });
 

@@ -121,5 +121,7 @@ Route::prefix('progresses')->name('progress.')->group(function(){
     Route::post('/store', [PlantProgressController::class, 'store'])->name('store');
     Route::get('/edit/{id}', [PlantProgressController::class, 'edit'])->name('edit');
     Route::put('/update/{id}', [PlantProgressController::class, 'update'])->name('update');
+    Route::delete('/delete/{id}', [PlantProgressController::class, 'destroy'])
+    ->name('delete');
 });
 });

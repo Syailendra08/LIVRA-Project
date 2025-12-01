@@ -244,7 +244,7 @@
 
 <div class="container mt-4">
     <div class="d-flex justify-content-end mb-3">
-    <a href="{{ route('plants.pdf', $plant->id) }}" class="btn btn-secondary">Unduh (.Pdf)</a>
+    <a href="{{ route('plants.pdf', $plant->id) }}" class="btn btn-danger">Export (.Pdf)</a>
 </div>
     <div class="plant-card">
         {{-- Gambar dan Barcode --}}

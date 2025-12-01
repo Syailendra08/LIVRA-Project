@@ -133,6 +133,9 @@ class PlantProgressController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $progress = PlantProgress::findOrFail($id);
+        $progress->delete();
+
+    return redirect()->back()->with('success', 'Progress berhasil dihapus!');
     }
 }
