@@ -311,6 +311,29 @@ public function deletePermanent($id)
     ]);
     }
 
+    public function chartLocation()
+{
+
+    $locations = Plant::select('location', \DB::raw('count(*) as plant_count'))
+        ->groupBy('location')
+        ->orderByDesc('plant_count')
+        ->get();
+
+ 
+    $labels = [];
+    $data = [];
+
+    foreach ($locations as $location) {
+        $labels[] = $location->location;
+        $data[] = $location->plant_count;
+    }
+
+    return response()->json([
+        'labels' => $labels,
+        'data'   => $data
+    ]);
+}
+
     public function gallery(Request $request)
 {
     $search = $request->input('search_plant');

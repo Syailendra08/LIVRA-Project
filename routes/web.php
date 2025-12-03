@@ -38,6 +38,7 @@ Route::middleware('isLoggedIn')->group(function () {
     })->name('gallery');
     Route::get('/gallery', [PlantController::class, 'gallery'])->name('gallery');
     Route::get('/plants/{id}/pdf', [PlantController::class, 'exportPdf'])->name('plants.pdf');
+    Route::get('/plants/{id}/infor', [PlantController::class, 'exportInfor'])->name('plants.infor');
 
 
 
@@ -50,6 +51,7 @@ Route::middleware('isLoggedIn')->group(function () {
 
 
 Route::middleware('isAdmin')->prefix('/admin')->name('admin.')->group(function() {
+    Route::get('/plants/chart-location', [PlantController::class, 'chartLocation'])->name('plants.chart-location');
     Route::get('/plants/chart', [PlantController::class, 'dataChart'])->name('plants.chart');
     Route::get('/dashboard', function() {
         $totalPlants = Plant::count();

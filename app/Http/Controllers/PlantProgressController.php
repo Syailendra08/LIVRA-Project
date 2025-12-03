@@ -136,6 +136,6 @@ class PlantProgressController extends Controller
         $progress = PlantProgress::findOrFail($id);
         $progress->delete();
 
-    return redirect()->back()->with('success', 'Progress berhasil dihapus!');
+    return redirect()->back()->with('success', 'Progress has been deleted succesfully!');
     }
 }

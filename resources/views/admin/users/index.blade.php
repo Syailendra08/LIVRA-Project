@@ -11,7 +11,7 @@
             <div class="alert alert-danger">{{ Session::get('failed') }}</div>
         @endif
     <div class="d-flex justify-content-end mb-3 mt-4">
-        <a href="{{route('admin.users.create')}}" class="btn btn-success">Tambah Data</a>
+        <a href="{{route('admin.users.create')}}" class="btn btn-success">Add Data</a>
     </div>
     <h5>User Data (Admin & Staff)</h5>
      <table class="table my-3 table-bordered" id="userTable">
@@ -37,11 +37,11 @@
     @endif
 </td>
                 <td class="text-center">
-                    <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="{{route('admin.users.delete', $user->id)}}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                    <a href="{{route('admin.users.edit', $user->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                    <form action="{{route('admin.users.delete', $user->id)}}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure want to delete this user?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                     </form>
                 </td>
             </tr>

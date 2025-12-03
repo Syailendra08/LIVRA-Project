@@ -5,12 +5,12 @@
             <div class="alert alert-danger">{{ Session::get('failed') }}</div>
         @endif
     <div class="card w-75 mx-auto my-3 p-4">
-        <h5 class="text-center my-3">Edit Data Staff</h5>
+        <h5 class="text-center my-3">Staff's Data Edit</h5>
         <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
+                <label for="name" class="form-label">Full Name</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ $user->name }}">
                 @error('name')
                     <small class="text-danger">{{ $message }}</small>

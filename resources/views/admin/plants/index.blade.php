@@ -103,7 +103,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm mx-2"
-                                        onclick="return confirm('Yakin hapus data ini?')">
+                                        onclick="return confirm('Are you sure want to delete this plant?')">
                                         Delete
                                     </button>
                                 </form>

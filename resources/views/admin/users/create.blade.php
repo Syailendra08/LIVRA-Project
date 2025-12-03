@@ -12,11 +12,11 @@
 
 
     <div class="card w-100 mx-auto my-3 p-4">
-        <h5 class="text-center my-3">Buat Data Staff</h5>
+        <h5 class="text-center my-3">Add Staff </h5>
         <form action="{{ route('admin.users.store') }}" method="POST">
             @csrf
             <div class="mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
+                <label for="name" class="form-label">Full Name</label>
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" >
                 @error('name')
                     <small class="text-danger">{{ $message }}</small>
@@ -37,7 +37,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Buat</button>
+            <button type="submit" class="btn btn-success">Add Data</button>
         </form>
     </div>
 @endsection

@@ -173,15 +173,15 @@
                 </div>
             </div>
             <div class="col-lg-6 d-flex">
-                <div class="card p-4 shadow-sm rounded-3 border-0 w-100">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="fw-bold text-gray-800">Plant Location</h5>
-                        <button class="btn btn-outline-secondary btn-sm rounded-pill">Yearly <i
-                                class="bi bi-chevron-down"></i></button>
-                    </div>
-                    <canvas id="chartBar"></canvas>
-                </div>
-            </div>
+    <div class="card p-4 shadow-sm rounded-3 border-0 w-100" style="height: 400px;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-gray-800">Plant Location</h5>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill">Yearly <i
+                    class="bi bi-chevron-down"></i></button>
+        </div>
+        <canvas id="chartBar"></canvas>
+    </div>
+</div>
         </div>
 
         <div class="card p-4 shadow-sm rounded-3 border-0">
@@ -227,22 +227,38 @@
     let labelChartPie = null;
     let dataChartPie = null;
 
-    $(function () {
+    
+    let labelChartBar = null;
+    let dataChartBar = null;
 
+    $(function () {
+        // Ambil data Chart Pie
         $.ajax({
             url: "{{ route('admin.plants.chart') }}",
             method: "GET",
             success: function(response) {
                 labelChartPie = response.labels;
                 dataChartPie = response.data;
-
                 showChartPie();
             },
             error: function() {
-                alert("Gagal mengambil data chart tanaman!");
+                alert("Gagal mengambil data chart kategori tanaman!");
             }
         });
 
+        // Ambil data Chart Bar (Lokasi)
+        $.ajax({
+            url: "{{ route('admin.plants.chart-location') }}",
+            method: "GET",
+            success: function(response) {
+                labelChartBar = response.labels;
+                dataChartBar = response.data;
+                showChartBar(); // Panggil fungsi untuk menampilkan chart bar
+            },
+            error: function() {
+                alert("Gagal mengambil data chart lokasi tanaman!");
+            }
+        });
     });
 
     function showChartPie() {
@@ -253,7 +269,7 @@
             data: {
                 labels: labelChartPie,
                 datasets: [{
-                    label: 'Plant Percentage by Category (%)',
+                    label: 'Plant by Category (%)',
                     data: dataChartPie,
                     backgroundColor: [
                         'rgb(75, 192, 192)',
@@ -264,6 +280,69 @@
                     ],
                     hoverOffset: 6
                 }]
+            }
+        });
+    }
+
+    // Fungsi untuk menampilkan Chart Bar
+    function showChartBar() {
+        const ctxBar = document.getElementById('chartBar');
+
+        new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: labelChartBar, // Label dari database (lokasi)
+                datasets: [{
+                    label: 'Plant Count',
+                    data: dataChartBar, // Data dari database (jumlah tanaman)
+                    backgroundColor: (context) => {
+                        const index = context.dataIndex;
+                        const colors = ['#B8EF81', '#79E50C', '#B8EF81', '#79E50C', '#B8EF81'];
+                        return colors[index % colors.length];
+                    },
+                    borderRadius: 5,
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.raw;
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: true,
+                        },
+                        ticks: {
+
+                            stepSize: 5,
+                            max: Math.max(...dataChartBar) > 40 ? undefined : 40
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
             }
         });
     }

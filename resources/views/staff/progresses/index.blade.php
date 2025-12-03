@@ -75,6 +75,7 @@
     .modal-edit-footer .btn-secondary {
         border-radius: 20px;
     }
+
 </style>
 
 <div class="container-fluid py-4 px-3">
@@ -84,9 +85,7 @@
         <a href="#" class="btn btn-secondary d-flex align-items-center">
                  <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
             </a>
-            <a href="#" class="btn btn-filter d-flex align-items-center">
-                <i class="fa-solid fa-file-export mx-2"></i> Export Excel
-            </a>
+
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">Add Plant</button>
     </div>
 </div>
@@ -97,11 +96,11 @@
             <table class="table table-hover table-borderless mb-0">
                 <thead class="bg-light">
                         <tr>
-                            <th class="p-3">Plant</th>
-                            <th class="p-3">Category</th>
-                            <th class="p-3">Last Update</th>
-                            <th class="p-3">Progress</th>
-                            <th class="p-3 text-end">Action</th>
+                            <th class="ps-4 py-3">Plant</th>
+                            <th class="ps-4 py-3">Category</th>
+                            <th class="ps-4 py-3">Last Update</th>
+                            <th class="ps-4 py-3">Progress</th>
+                            <th class="ps-4 py-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -110,7 +109,7 @@
                             <td>{{$progress['plant_name']}}</td>
                             <td>{{$progress['category']['category_name']}}</td>
                             <td>{{ $progress->updated_at->format('d M Y H:i') }}</td>
-                            <td class="p-3 text-end">
+                            <td class="p-3">
                                 <button class="btn btn-outline-success btn-sm mx-2"
     onclick='showProgressModal({!! json_encode([
         "plant_name" => $progress["plant_name"],
@@ -126,7 +125,7 @@
 </button>
 
                             </td>
-                            <td>
+                            <td class="p-3">
                                 <button class="btn btn-outline-secondary btn-sm mx-2"
         onclick='showEditModal({!! json_encode($progress) !!})'>
     <i class="fa-solid fa-gear"> </i> Manages
@@ -364,7 +363,7 @@ function showEditModal(data) {
             </a>
 
             <form method="POST" action="{{ url('staff/progresses/delete') }}/${p.progress_id}"
-                  onsubmit="return confirm('Yakin ingin menghapus progress ini?')">
+                  onsubmit="return confirm('Are you sure want to delete this progress?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-sm btn-danger btn-edit-modal" !important>
