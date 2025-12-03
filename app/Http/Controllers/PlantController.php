@@ -319,7 +319,7 @@ public function deletePermanent($id)
         ->orderByDesc('plant_count')
         ->get();
 
- 
+
     $labels = [];
     $data = [];
 
@@ -382,6 +382,15 @@ public function exportPdf($id)
                 ->setPaper('A4', 'portrait');
 
     return $pdf->download('plant-'.$plant->plant_name.'.pdf');
+}
+
+public function exportInfor($id)
+{
+    $plant = Plant::with(['category', 'tip'])->findOrFail($id);
+    $pdf = Pdf::loadView('plants.infor', compact('plant'))
+                ->setPaper('A5', 'landscape');
+                
+    return $pdf->download('information-'.$plant->plant_name.'.pdf');
 }
 
 }
