@@ -118,7 +118,7 @@
                                 <i class="fa-solid fa-spinner"></i>
                             </div>
                             <h6 class="text-muted  mb-0">Total Progress</h6>
-                            <h3 class="fw-bold text-gray-900">120</h3>
+                            <h3 class="fw-bold text-gray-900">{{$totalProgresses}}</h3>
                         </div>
                         <div class="text-end">
                             <span class="badge bg-green-light text-green px-2 py-1 rounded-pill">+5%</span>

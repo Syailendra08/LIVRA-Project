@@ -114,8 +114,8 @@ Route::get('/dashboard', function() {
         $totalPlants = Plant::count();
         $totalUsers = User::count();
         $totalCategories = PlantCategory::count();
-
-    return view('staff.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories'));
+        $totalProgresses =PlantProgress::count();
+    return view('staff.dashboard', compact('totalPlants', 'totalUsers', 'totalCategories', 'totalProgresses'));
     })->name('dashboard');
 
 Route::prefix('progresses')->name('progress.')->group(function(){
