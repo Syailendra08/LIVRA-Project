@@ -274,8 +274,6 @@ public function deletePermanent($id)
     if ($plant->barcode && Storage::disk('public')->exists('qrcodes/' . $plant->barcode . '.svg')) {
         Storage::disk('public')->delete('qrcodes/' . $plant->barcode . '.svg');
     }
-
-    // Hapus permanen dari database
     $plant->forceDelete();
 
     return redirect()->back()->with('success', 'Plant permanently deleted.');
@@ -345,7 +343,6 @@ public function deletePermanent($id)
                   ->orWhere('location', 'like', '%' . $search . '%');
         });
 
-    // Sorting plant
     switch ($sort) {
         case 'alphabet':
             $plants->orderBy('plant_name', 'asc');
@@ -389,7 +386,7 @@ public function exportInfor($id)
     $plant = Plant::with(['category', 'tip'])->findOrFail($id);
     $pdf = Pdf::loadView('plants.infor', compact('plant'))
                 ->setPaper('A5', 'landscape');
-                
+
     return $pdf->download('information-'.$plant->plant_name.'.pdf');
 }
 

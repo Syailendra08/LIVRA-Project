@@ -138,4 +138,30 @@ class PlantProgressController extends Controller
 
     return redirect()->back()->with('success', 'Progress has been deleted succesfully!');
     }
+
+    public function trash()
+    {
+        $progressTrash = PlantProgress::onlyTrashed()
+        ->with(['plant', 'category'])
+        ->get();
+
+    return view('staff.progresses.trash', compact('progressTrash'));
+    }
+
+    public function restore($id)
+{
+    $progress = PlantProgress::onlyTrashed()->where('progress_id', $id)->firstOrFail();
+    $progress->restore();
+
+    return redirect()->back()->with('success', 'Progress has been restored!');
+}
+
+public function deletePermanent($id)
+{
+    $progress = PlantProgress::onlyTrashed()->where('progress_id', $id)->firstOrFail();
+    $progress->forceDelete();
+
+    return redirect()->back()->with('success', 'Progress permanently deleted!');
+}
+
 }

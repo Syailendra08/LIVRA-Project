@@ -57,13 +57,12 @@
         padding: 1rem 1.5rem;
     }
 
-    /* Card list item */
     .edit-item {
         border-bottom: 1px solid #e0e0e0;
         padding: 12px 6px;
     }
 
-    /* Tombol edit */
+
     .btn-edit-modal {
         border-radius: 20px;
         padding: 6px 14px;
@@ -71,7 +70,7 @@
 
     }
 
-    /* Modal footer */
+
     .modal-edit-footer .btn-secondary {
         border-radius: 20px;
     }
@@ -83,8 +82,9 @@
         <h1 class="h2 fw-semibold">Our Progress</h1>
         <div class="d-flex align-items-center gap-3">
         <a href="#" class="btn btn-secondary d-flex align-items-center">
-                 <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
-            </a>
+    <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
+</a>
+
 
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd">Add Plant</button>
     </div>
@@ -141,26 +141,18 @@
     </div>
 </div>
 </div>
-{{-- modal --}}
+
 <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAddLabel" aria-hidden="true">
-
-
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4">
-
-            <!-- HEADER -->
             <div class="modal-header modal-header-custom">
                 <h5 class="modal-title" id="modalAddLabel">Add Progress</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
-            <!-- FORM -->
             <form method="POST" action="{{ route('staff.progress.store') }}">
                 @csrf
-
                 <div class="modal-body px-4">
-
-                    {{-- Category --}}
                     <label class="fw-semibold mb-1">Plant Category</label>
                     <select name="category_id" id="category_id"
                         class="form-select input-custom mb-3 @error('category_id') is-invalid @enderror">
@@ -172,8 +164,6 @@
                     @error('category_id')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
-
-                    {{-- Plant --}}
                     <label class="fw-semibold mb-1">Plant</label>
                     <select name="plant_id" id="plant_id"
                         class="form-select input-custom mb-3 @error('plant_id') is-invalid @enderror">
@@ -187,7 +177,6 @@
                     @enderror
 
                     <div class="row">
-                        {{-- Date --}}
                         <div class="col-md-6">
                             <label class="fw-semibold mb-1">Progress Date</label>
                             <input type="date" name="progress_date" id="progress_date"
@@ -197,7 +186,6 @@
                             @enderror
                         </div>
 
-                        {{-- Progress Type --}}
                         <div class="col-md-6">
                             <label class="fw-semibold mb-1">Progress Type</label>
                             <select name="progress_type" id="progress_type"
@@ -212,8 +200,6 @@
                             @enderror
                         </div>
                     </div>
-
-                    {{-- Description --}}
                     <label class="fw-semibold mt-3 mb-1">Description</label>
                     <textarea name="description" id="description" rows="3"
                         class="form-control input-custom @error('description') is-invalid @enderror"
@@ -223,8 +209,6 @@
                     @enderror
 
                 </div>
-
-                <!-- FOOTER -->
                 <div class="modal-footer border-0 d-flex justify-content-between">
                     <button type="button" class="btn-cancel" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn-save">
@@ -236,7 +220,6 @@
         </div>
     </div>
 </div>
-{{-- end of modal --}},
 
 <!-- Modal: View Progress -->
 <div class="modal fade" id="modalProgress" tabindex="-1" aria-labelledby="modalProgressLabel" aria-hidden="true">
@@ -248,11 +231,8 @@
         </h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-
       <div class="modal-body" id="progressList">
-        {{-- Dynamic content will be inserted here --}}
       </div>
-
       <div class="modal-footer">
         <button class="btn text-white" style=" background: #267C5D;" data-bs-toggle="modal" data-bs-target="#modalAdd">
           + Add Progress
@@ -262,7 +242,7 @@
     </div>
   </div>
 </div>
-<!-- Modal: Choose Progress to Edit -->
+<!-- Modal Manages -->
 <div class="modal fade" id="modalChooseEdit" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -274,7 +254,6 @@
         <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body" id="editProgressList">
-        {{-- Dynamic list of progress --}}
       </div>
 
       <div class="modal-footer">
@@ -291,16 +270,12 @@
  @if ($errors->any())
         <script>
             let modalAdd = document.querySelector("#modalAdd");
-            // munculkan modal dengan JS
             new bootstrap.Modal(modalAdd).show();
         </script>
     @endif
     <script>
 function showProgressModal(data) {
-    // ubah judul modal
     document.getElementById('plantName').textContent = data.plant_name;
-
-    // ambil container isi modal
     let list = document.getElementById('progressList');
     list.innerHTML = '';
 
@@ -323,8 +298,6 @@ function showProgressModal(data) {
     } else {
         list.innerHTML = `<p class="text-muted text-center">No progress recorded yet.</p>`;
     }
-
-    // tampilkan modal
     let modal = new bootstrap.Modal(document.getElementById('modalProgress'));
     modal.show();
 }
@@ -333,7 +306,7 @@ function showProgressModal(data) {
 <script>
 function showEditModal(data) {
 
-    console.log(data) // CEK data progress
+    console.log(data)
 
     document.getElementById("editPlantName").textContent = data.plant_name;
 
@@ -345,7 +318,6 @@ function showEditModal(data) {
         data.progresses.forEach(p => {
 
             console.log(p);
- // CEK isi progress, nama field ID apa
 
             list.innerHTML += `
                 <div class="d-flex justify-content-between align-items-center border-bottom py-2">

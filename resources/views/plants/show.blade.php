@@ -2,34 +2,33 @@
 
 @section('content')
 <style>
-    /* Card header: name + description like the screenshot */
 .plant-header {
-    background-color: #e6f9e9; /* hijau muda */
+    background-color: #e6f9e9;
     border-radius: 12px;
     padding: 18px 20px;
     margin-bottom: 12px;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03); /* subtle inner border */
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
 }
 
-/* Title inside header */
+
 .plant-header .plant-title {
-    color: #1f7a3c;       /* hijau gelap */
+    color: #1f7a3c;
     font-weight: 700;
-    font-size: 1.25rem;   /* agak besar */
+    font-size: 1.25rem;
     margin: 0 0 8px 0;
 }
 
-/* Description inside header */
+
 .plant-header .plant-desc {
-    color: #234f2b;       /* sedikit kontras, tetap gelap */
+    color: #234f2b;
     margin: 0;
     line-height: 1.45;
     font-size: 0.95rem;
 }
 
-/* Jika teks terlalu panjang, batasi lebar untuk estetika */
+
 .plant-header .plant-desc.long {
-    max-width: 60ch; /* opsional: batasi jumlah karakter per baris */
+    max-width: 60ch;
     display: block;
 }
 
@@ -79,7 +78,6 @@
         font-weight: 600;
         margin-bottom: 6px;
     }
-    /* Wrapper untuk Health & Cultural agar sejajar */
 .benefit-section {
     display: flex;
     flex-wrap: wrap;
@@ -87,7 +85,6 @@
     margin-bottom: 12px;
 }
 
-/* Masing-masing kotak menyesuaikan lebar */
 .benefit-section .info-section {
     flex: 1 1 calc(50% - 8px);
     border-radius: 12px;
@@ -95,7 +92,7 @@
     border: 1px solid transparent;
 }
 
-/* Style khusus sesuai contoh */
+
 .info-section.blue {
     background-color: #f0f4ff;
     border-color: #b3c6ff;
@@ -114,7 +111,7 @@
     color: #c55a00;
 }
 
-/* Responsif: kalau layar kecil, jadi satu kolom */
+
 @media (max-width: 768px) {
     .benefit-section .info-section {
         flex: 1 1 100%;
@@ -144,7 +141,7 @@
     margin-bottom: 10px;
 }
 
-/* Grid layout untuk tips */
+
 .care-grid {
     display: flex;
     flex-wrap: wrap;
@@ -170,7 +167,6 @@
     line-height: 1.4;
 }
 
-/* Habitat & Condition sejajar */
 .habitat-condition {
     display: flex;
     flex-wrap: wrap;
@@ -185,7 +181,7 @@
     border: 1px solid #ddd;
 }
 
-/* Habitat styling */
+
 .habitat-box {
     background-color: #fffecf;
     border-color: #fff799;
@@ -196,7 +192,7 @@
     font-weight: 700;
 }
 
-/* Condition default */
+
 .condition-box {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -208,7 +204,7 @@
     margin-bottom: 6px;
 }
 
-/* Warna kondisi */
+
 .condition-healthy p {
     color: #22aa22;
     font-weight: 600;
@@ -237,9 +233,39 @@
     .barcode {
         margin-top: 10px;
         width: 120px !important;
-        height: auto !important;       /* biar proporsional */
+        height: auto !important;
     display: block;
     }
+    .information {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    flex: 1 1 30%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    text-align: center;
+    border: 1px solid #bbcec8;
+}
+
+.info-card h6 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.info-card p {
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: bold;
+}
+
 </style>
 
 <div class="container mt-4">
@@ -248,13 +274,13 @@
     <a href="{{ route('plants.infor', $plant->id) }}" class="btn btn-danger">Infor Panel (.Pdf)</a>
 </div>
     <div class="plant-card">
-        {{-- Gambar dan Barcode --}}
+
         <div class="plant-image">
             <img src="{{ asset('storage/' . $plant->photo) }}" alt="{{ $plant->plant_name }}">
             <img src="{{ asset('storage/qrcodes/' . $plant->barcode . '.svg') }}" class="barcode" alt="barcode">
         </div>
 
-        {{-- Detail Informasi --}}
+
         <div class="plant-info">
             <div class="plant-header">
     <h3 class="plant-title">{{ $plant->plant_name }}</h3>
@@ -313,9 +339,23 @@
 </div>
 
 
-            <p><strong>Location:</strong> {{ $plant->location }}</p>
-            <p><strong>Stock:</strong> {{ $plant->stock }}</p>
-<p><strong>Progress:</strong> {{ $plant->status }}</p>
+           <div class="information">
+    <div class="info-card " style="background: #e5f0f8">
+        <h6 class="text-primary">Location</h6>
+        <p>{{ $plant->location }}</p>
+    </div>
+
+    <div class="info-card" style="background: #edf7ee">
+        <h6 class="text-success" >Stock</h6>
+        <p>{{ $plant->stock }}</p>
+    </div>
+
+    <div class="info-card" style="background: #fcf4e7">
+        <h6 style="color: #d9822b">Progress</h6>
+        <p>{{ $plant->status }}</p>
+    </div>
+</div>
+
         </div>
     </div>
 </div>

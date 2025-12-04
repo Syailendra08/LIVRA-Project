@@ -10,14 +10,12 @@
             font-size: 10pt;
         }
 
-        /* Container harus memiliki border, tetapi jangan paksa height: 100% */
         .plant-label-container {
             border: 5px solid #5cb85c;
             border-radius: 8px;
-            padding: 20px;
-            overflow: hidden; /* Penting untuk membersihkan float */
+            padding: 30px 20px 70px 20px;
+            overflow: hidden;
             position: relative;
-            max-height: 210mm;
         }
 
         .label-header {
@@ -33,7 +31,6 @@
 
         .header-cell.location {
             text-align: center;
-            width: auto;
         }
 
         .logo {
@@ -46,30 +43,25 @@
             color: #333;
         }
 
-
         .qr-code-box {
             width: 200px;
             float: left;
             margin-right: 30px;
+            margin-bottom: 5px;
             text-align: left;
         }
 
         .qr-code-box img {
             width: 100%;
             height: 200px;
-            border: 3px solid #000;
+            padding-bottom: 5px;
+            margin-top: 30px
         }
 
         .text-details {
             overflow: hidden;
             line-height: 1.3;
-        }
-
-        .latin-name-label {
-            font-size: 16pt;
-            color: #777;
-            margin-bottom: 5px;
-            margin-top: 15px;
+            padding-top: 10px;
         }
 
         .latin-name {
@@ -77,13 +69,17 @@
             font-size: 18pt;
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .common-name {
             font-size: 36pt;
             font-weight: bold;
             color: #28a745;
+        }
+
+        .clearfix {
+            clear: both;
         }
     </style>
 </head>
@@ -110,13 +106,13 @@
 
         <div class="text-details">
             <div class="latin-name">{{ $plant->latin_name }}</div>
-            <br> <br>
 
             <div class="common-name">
                 {{ $plant->plant_name }}
-                <br>
             </div>
         </div>
+
+        <div class="clearfix"></div>
 
     </div>
 

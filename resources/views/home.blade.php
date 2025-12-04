@@ -108,7 +108,7 @@
             <div class="col-md-7 hero-text">
                 <h1>Manage your plants smarter not harder, with LIVRA</h1>
                 <p>LIVRA is a modern plant management application designed to help you organize, care for, and monitor your plant collection with ease and efficiency.</p>
-                <a href="#" class="btn btn-start-now">Start Now</a>
+                <a href="{{ route('login') }}" class="btn btn-start-now">Start Now</a>
             </div>
             <div class="col-md-5 hero-image">
                 <img src="{{ asset('images/watering.png') }}" alt="Plant Management Illustration">

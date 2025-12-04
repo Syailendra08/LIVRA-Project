@@ -12,7 +12,6 @@
             <div class="alert alert-danger">{{ Session::get('failed') }}</div>
         @endif
 
-    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold">Categories</h2>
@@ -24,7 +23,7 @@
             <a href="{{ route('admin.category.trash') }}" class="btn btn-secondary me-2">
                 <i class="fa-solid fa-trash-can-arrow-up mx-2"></i> Recycle Bin
             </a>
-        <a href="{{ route('admin.category.export') }}" class="btn btn-info">
+        <a href="{{ route('admin.category.export') }}" class="btn btn-info me-2">
             <i class="fa-solid fa-file-export mx-2"></i> Export Categories
         </a>
         <a href="{{ route('admin.category.create') }}" class="btn btn-success">
@@ -35,20 +34,18 @@
 
     </div>
 
-    <!-- Categories Grid -->
+
    <div class="row g-4">
     @foreach ($categories as $category)
         <div class="col-md-4">
             <div class="category-card position-relative">
-
-                <!-- Action Icons -->
                 <div class="action-icons position-absolute top-0 end-0 m-2 d-flex">
-                    <!-- Edit -->
+
                     <a href="{{route('admin.category.edit', $category->id)}}" class="text-primary me-2">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
 
-                    <!-- Delete -->
+
                     <form action="{{ route('admin.category.delete', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                         @csrf
                         @method('DELETE')
@@ -58,7 +55,6 @@
                     </form>
                 </div>
 
-                <!-- Card Content -->
                 <div class="category-icon">
                     <i class="fa-solid fa-seedling"></i>
                 </div>
@@ -72,10 +68,10 @@
 </div>
 </div>
 
-<!-- Custom CSS -->
+
 <style>
     .category-card {
-        background-color: #d4fcd4; /* hijau muda */
+        background-color: #d4fcd4;
         border-radius: 15px;
         padding: 15px;
         text-align: left;
@@ -83,7 +79,7 @@
     }
 
     .category-icon {
-        background-color: #b5f5b5; /* hijau sedikit lebih tua */
+        background-color: #b5f5b5;
         border-radius: 12px;
         padding: 40px;
         text-align: center;
@@ -92,7 +88,7 @@
 
     .category-icon i {
         font-size: 2rem;
-        color: #1b5e20; /* hijau gelap */
+        color: #1b5e20;
     }
 
     .category-info h5 {

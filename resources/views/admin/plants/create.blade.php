@@ -8,7 +8,6 @@
         @csrf
         <div class="row g-3">
 
-            <!-- Plant Name -->
             <div class="col-md-6">
                 <label for="plant_name" class="form-label fw-semibold">Name*</label>
                 <input type="text" name="plant_name" id="plant_name"
@@ -19,7 +18,6 @@
                 @enderror
             </div>
 
-            <!-- Category -->
             <div class="col-md-6">
                 <label for="category_id" class="form-label fw-semibold">Category*</label>
                 <select name="category_id" id="category_id"
@@ -37,7 +35,6 @@
                 @enderror
             </div>
 
-            <!-- Latin Name -->
             <div class="col-md-6">
                 <label for="latin_name" class="form-label fw-semibold">Latin Name*</label>
                 <input type="text" name="latin_name" id="latin_name"
@@ -48,7 +45,6 @@
                 @enderror
             </div>
 
-            <!-- Condition -->
             <div class="col-md-6">
                 <label for="condition" class="form-label fw-semibold">Condition*</label>
                 <select name="condition" id="condition"
@@ -63,7 +59,6 @@
                 @enderror
             </div>
 
-            <!-- Description -->
             <div class="col-12">
                 <label for="description" class="form-label fw-semibold">Description*</label>
                 <textarea name="description" id="description" rows="3"
@@ -74,7 +69,6 @@
                 @enderror
             </div>
 
-            <!-- Health Benefit -->
             <div class="col-md-6">
                 <label for="health_benefits" class="form-label fw-semibold">Health Benefits*</label>
                 <input type="text" name="health_benefits" id="health_benefits"
@@ -85,7 +79,6 @@
                 @enderror
             </div>
 
-            <!-- Cultural Benefits -->
             <div class="col-md-6">
                 <label for="cultural_benefits" class="form-label fw-semibold">Cultural Benefits*</label>
                 <input type="text" name="cultural_benefits" id="cultural_benefits"
@@ -96,7 +89,6 @@
                 @enderror
             </div>
 
-            <!-- Watering -->
             <div class="col-md-6">
                 <label for="watering" class="form-label fw-semibold">Watering*</label>
                 <input type="text" name="watering" id="watering"
@@ -107,7 +99,6 @@
                 @enderror
             </div>
 
-            <!-- Lighting -->
             <div class="col-md-6">
                 <label for="lighting" class="form-label fw-semibold">Lighting*</label>
                 <input type="text" name="lighting" id="lighting"
@@ -118,7 +109,7 @@
                 @enderror
             </div>
 
-            <!-- Growing Media -->
+
             <div class="col-md-6">
                 <label for="growing_media" class="form-label fw-semibold">Growing Media*</label>
                 <input type="text" name="growing_media" id="growing_media"
@@ -140,7 +131,6 @@
                 @enderror
             </div>
 
-            <!-- Location -->
             <div class="col-md-6">
                 <label for="location" class="form-label fw-semibold">Location*</label>
                 <input type="text" name="location" id="location"
@@ -151,7 +141,6 @@
                 @enderror
             </div>
 
-            <!-- Stock -->
             <div class="col-md-6">
                 <label for="stock" class="form-label fw-semibold">Stock*</label>
                 <input type="number" name="stock" id="stock"
@@ -162,7 +151,6 @@
                 @enderror
             </div>
 
-            <!-- Photo -->
             <div class="col-12">
                 <label for="photo" class="form-label fw-semibold">Plant Photo*</label>
                 <input type="file" name="photo" id="photo"
@@ -174,7 +162,6 @@
 
         </div>
 
-        <!-- Submit Button -->
         <div class="mt-4">
             <button type="submit" class="btn btn-success">
                 <i class="fa-solid fa-plus"></i> Create Plant

@@ -26,15 +26,14 @@
 
     </div>
 
-    <!-- Categories Grid -->
+
    <div class="row g-4">
     @foreach ($categoryTrash as $category)
         <div class="col-md-4">
             <div class="category-card position-relative">
 
-                <!-- Action Icons -->
+
                 <div class="action-icons position-absolute top-0 end-0 m-2 d-flex">
-                    <!-- Edit -->
                      <form action="{{route('admin.category.restore', $category['id'])}}" method="POST">
                         @csrf
                         @method('PATCH')
@@ -43,7 +42,6 @@
                         </button>
                     </form>
 
-                    <!-- Delete -->
                     <form class="ms-2" action="{{route('admin.category.delete_permanent', $category['id'])}}" method="POST" >
                         @csrf
                         @method('DELETE')
@@ -52,7 +50,6 @@
                         </button>
                     </form>
                 </div>
-
 
                 <div class="category-icon">
                     <i class="fa-solid fa-seedling"></i>
@@ -67,10 +64,10 @@
 </div>
 </div>
 
-<!-- Custom CSS -->
+
 <style>
     .category-card {
-        background-color: #d4fcd4; /* hijau muda */
+        background-color: #d4fcd4;
         border-radius: 15px;
         padding: 15px;
         text-align: left;
@@ -78,7 +75,7 @@
     }
 
     .category-icon {
-        background-color: #b5f5b5; /* hijau sedikit lebih tua */
+        background-color: #b5f5b5;
         border-radius: 12px;
         padding: 40px;
         text-align: center;
@@ -87,7 +84,7 @@
 
     .category-icon i {
         font-size: 2rem;
-        color: #1b5e20; /* hijau gelap */
+        color: #1b5e20;
     }
 
     .category-info h5 {

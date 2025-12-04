@@ -44,13 +44,13 @@
 }
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* pas 5 kolom */
+    grid-template-columns: repeat(5, 1fr);
     gap: 12px;
 }
 .cards-container .card {
     border-radius: 12px;
-    width: 245px; /* kecil */
-    height: 330px; /* tinggi sedang */
+    width: 245px;
+    height: 330px;
     margin: auto;
     transition: transform 0.2s ease;
 }
@@ -88,7 +88,6 @@
 
     <br>
 
-    <!-- Discover Section -->
     <section class="py-4 px-3 rounded" style="background-color:#E2FFB5;">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <form action="{{ route('gallery')}}" method="GET">

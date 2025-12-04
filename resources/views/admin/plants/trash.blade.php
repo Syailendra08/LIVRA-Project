@@ -117,7 +117,7 @@
     </div>
 </div>
 
-<!-- Modal Global -->
+<!-- DModal buat detail-->
 <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -221,7 +221,7 @@
         </div>
     `;
 
-    // Perhatikan: Tombol Edit dan Delete tidak dimasukkan di sini, sesuai permintaan.
+    
 
     document.querySelector("#modalDetailBody").innerHTML = content;
     new bootstrap.Modal(document.querySelector("#modalDetail")).show();

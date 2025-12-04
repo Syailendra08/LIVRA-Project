@@ -4,7 +4,6 @@
     <style>
         body {
             background-color: #f8f9fa;
-            /* Latar belakang abu-abu muda */
         }
 
         .card {
@@ -73,21 +72,6 @@
 
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0 fw-bold text-gray-800">Dashboard</h2>
-            <div class="d-flex align-items-center">
-                <div class="input-group me-3">
-                    <span class="input-group-text bg-white border-end-0 rounded-start-pill"><i
-                            class="bi bi-search text-muted"></i></span>
-                    <input type="text" class="form-control border-start-0 rounded-end-pill"
-                        placeholder="Search anything...">
-                </div>
-                <a href="#" class="btn btn-light-gray rounded-circle p-2 position-relative">
-                    <i class="bi bi-bell-fill text-muted fs-5"></i>
-                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">3</span>
-                </a>
-                <a href="#" class="btn btn-light-gray rounded-circle p-2 ms-2">
-                    <i class="bi bi-person-circle text-muted fs-5"></i>
-                </a>
-            </div>
         </div>
 
 
@@ -227,12 +211,11 @@
     let labelChartPie = null;
     let dataChartPie = null;
 
-    
+
     let labelChartBar = null;
     let dataChartBar = null;
 
     $(function () {
-        // Ambil data Chart Pie
         $.ajax({
             url: "{{ route('admin.plants.chart') }}",
             method: "GET",
@@ -246,14 +229,13 @@
             }
         });
 
-        // Ambil data Chart Bar (Lokasi)
         $.ajax({
             url: "{{ route('admin.plants.chart-location') }}",
             method: "GET",
             success: function(response) {
                 labelChartBar = response.labels;
                 dataChartBar = response.data;
-                showChartBar(); // Panggil fungsi untuk menampilkan chart bar
+                showChartBar();
             },
             error: function() {
                 alert("Gagal mengambil data chart lokasi tanaman!");
@@ -284,17 +266,16 @@
         });
     }
 
-    // Fungsi untuk menampilkan Chart Bar
     function showChartBar() {
         const ctxBar = document.getElementById('chartBar');
 
         new Chart(ctxBar, {
             type: 'bar',
             data: {
-                labels: labelChartBar, // Label dari database (lokasi)
+                labels: labelChartBar,
                 datasets: [{
                     label: 'Plant Count',
-                    data: dataChartBar, // Data dari database (jumlah tanaman)
+                    data: dataChartBar,
                     backgroundColor: (context) => {
                         const index = context.dataIndex;
                         const colors = ['#B8EF81', '#79E50C', '#B8EF81', '#79E50C', '#B8EF81'];

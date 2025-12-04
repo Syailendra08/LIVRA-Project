@@ -125,5 +125,8 @@ Route::prefix('progresses')->name('progress.')->group(function(){
     Route::put('/update/{id}', [PlantProgressController::class, 'update'])->name('update');
     Route::delete('/delete/{id}', [PlantProgressController::class, 'destroy'])
     ->name('delete');
+    Route::get('/trash', [PlantController::class, 'trash'])->name('trash');
+    Route::patch('/restore/{id}', [PlantController::class, 'restore'])->name('restore');
+    Route::delete('/delete-permanent/{id}', [PlantController::class, 'deletePermanent'])->name('delete_permanent');
 });
 });

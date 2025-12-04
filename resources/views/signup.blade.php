@@ -1,33 +1,18 @@
 @extends('templates.app')
 
 @section('content')
-    <div class="d-flex" style="min-height: 100vh; background-color: #f7f7f7;">
-
-        <div class="w-75 p-5 bg-white d-flex flex-column justify-content-center">
-
-            <h1 class="mb-5 text-center" style="font-weight: bold;">Hello Planters!</h1>
-
-            <div class="w-75 d-block mx-auto">
-                <form method="POST" action="{{ route('signup.send_data') }}">
-                    @if (Session::get('failed'))
-                        <div class="alert alert-danger my-3">{{ Session::get('failed') }}</div>
-                    @endif
-                    @csrf
-
-                    <style>
-                        /* Definisikan warna hijau terang */
+<style>
                         .planters-input-style {
                             border-color: #aaff66 !important;
-                            /* Hijau terang */
+
                             border-width: 2px !important;
                             padding: 10px !important;
                         }
 
-                        /* Styling label */
+
                         .form-label {
                             font-weight: bold;
                             color: #38761d;
-                            /* Hijau gelap */
                         }
 
                         .w-50 {
@@ -43,6 +28,18 @@
                             font-weight: bold;
                         }
                     </style>
+    <div class="d-flex" style="min-height: 100vh; background-color: #f7f7f7;">
+
+        <div class="w-75 p-5 bg-white d-flex flex-column justify-content-center">
+
+            <h1 class="mb-5 text-center" style="font-weight: bold;">Hello Planters!</h1>
+
+            <div class="w-75 d-block mx-auto">
+                <form method="POST" action="{{ route('signup.send_data') }}">
+                    @if (Session::get('failed'))
+                        <div class="alert alert-danger my-3">{{ Session::get('failed') }}</div>
+                    @endif
+                    @csrf
 
                     <div class="row mb-4">
                         <div class="col">
