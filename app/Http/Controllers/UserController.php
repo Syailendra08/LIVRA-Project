@@ -50,7 +50,7 @@ class UserController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'role' => 'staff', // staff/admin
+        'role' => 'staff', 
     ]);
    if ($createUser) {
     return redirect()->route('admin.users.index')->with('success', 'Success, user has been added!');
@@ -186,7 +186,7 @@ class UserController extends Controller
                 } elseif (Auth::user()->role === 'staff') {
                     return redirect()->route('staff.dashboard')->with('success', 'Login successful. Welcome Staff!');
                 } else {
-                    return redirect()->route('home')->with('success', 'Login successful. Welcome back!');
+                    return redirect()->route('gallery')->with('success', 'Login successful. Welcome back!');
                 }
         } else {
                 return redirect()->route('login')->with('failed', 'Login failed. Please check your credentials and try again.');

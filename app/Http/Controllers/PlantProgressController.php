@@ -84,17 +84,16 @@ class PlantProgressController extends Controller
      */
     public function edit(string $id)
     {
-        // Ambil progress ID yang diklik
+
     $progress = PlantProgress::find($id);
 
     if (!$progress) {
         abort(404, 'Progress not found');
     }
 
-    // Ambil plant berdasarkan progress->plant_id
+
     $plant = Plant::find($progress->plant_id);
 
-    // Ambil kategori untuk dropdown
     $categories = PlantCategory::all();
 
     return view('staff.progresses.edit', compact('plant', 'progress', 'categories'));

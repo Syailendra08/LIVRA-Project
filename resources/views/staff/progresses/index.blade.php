@@ -279,6 +279,17 @@ function showProgressModal(data) {
     let list = document.getElementById('progressList');
     list.innerHTML = '';
 
+    let mentokHarvesting = data.progresses.some(
+        p => p.progress_type.toLowerCase() === 'harvesting'
+    );
+
+    let addBtn = document.querySelector('#modalProgress .btn.text-white');
+    if (mentokHarvesting) {
+        addBtn.style.display = "none";
+    } else {
+        addBtn.style.display = "inline-block";
+    }
+
     if (data.progresses && data.progresses.length > 0) {
         data.progresses.forEach(p => {
             let icon = p.progress_type.toLowerCase() === 'harvesting' ? '🌾'

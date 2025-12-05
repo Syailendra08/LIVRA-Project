@@ -266,7 +266,7 @@ public function deletePermanent($id)
 {
     $plant = Plant::onlyTrashed()->findOrFail($id);
 
-    // Hapus file photo & barcode jika masih ada
+
     if ($plant->photo && Storage::disk('public')->exists($plant->photo)) {
         Storage::disk('public')->delete($plant->photo);
     }
@@ -281,25 +281,24 @@ public function deletePermanent($id)
 
     public function dataChart()
     {
-      // Ambil semua kategori + jumlah tanaman per kategori
     $categories = PlantCategory::withCount('plants')->get();
 
-    // Hitung total tanaman
+
     $totalPlants = Plant::count();
 
-    // Siapkan label dan data persentase
+
     $labels = [];
     $data = [];
 
     foreach ($categories as $category) {
         $labels[] = $category->category_name;
 
-        // Hitung persentase
+
         $percentage = $totalPlants > 0
             ? ($category->plants_count / $totalPlants) * 100
             : 0;
 
-        // simpan hasil count ke array data
+
         $data[] = round($percentage, 2);
     }
 
@@ -313,6 +312,7 @@ public function deletePermanent($id)
 {
 
     $locations = Plant::select('location', \DB::raw('count(*) as plant_count'))
+    
         ->groupBy('location')
         ->orderByDesc('plant_count')
         ->get();
